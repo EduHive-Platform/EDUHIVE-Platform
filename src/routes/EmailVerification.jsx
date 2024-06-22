@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const OuterContainer = styled.div`
   position: relative;
@@ -90,24 +91,27 @@ const EmailVerification = () => {
     const { name, dateOfBirth, institution } = location.state;
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
+    
+    // func for clicking confirm button, save user information 
+    const handleConfirm = async (e) => {
+      e.preventDefault(); // Prevents the default form submission behavior
+      const userData = {
+        name,
+        dateOfBirth,
+        institution,
+        email,
+        created_at: new Date(),
+      };
   
-    const handleConfirm = async () => {
       try {
-        const response = await fetch('http://localhost:3000/save-user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, dateOfBirth, institution, email, verificationCode }),
-        });
-        if (response.ok) {
-          alert('User information saved successfully');
-          navigate('/'); // Redirect to a success page or home page
-        } else {
-          alert('Error saving user information');
-        }
+        const response = await axios.post('http://localhost:3000/save-user', userData);
+        console.log(response.data);
+        /* Redirect or update UI based on the response 
+           TODO
+        */
+        alert("User saved successfully!");
       } catch (error) {
-        alert('Error saving user information');
+        console.error('There was an error saving the user!', error);
       }
     };
   
