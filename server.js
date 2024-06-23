@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDB, EduUser } = require("./database");
+const bcrypt = require('bcrypt');
 const port = 3000
 
 const app = express();
@@ -14,9 +15,11 @@ app.use(express.static(__dirname + "/public"));
 
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
-    const { name, dateOfBirth, institution, email, created_at } = req.body;
+    const { name, dateOfBirth, institution, email, created_at, password } = req.body;
+    password_hash = await bcrypt.hash(password, 10);
     const newUser = new EduUser({
         username: name,
+        password_hash,
         email,
         dateOfBirth,
         institution,

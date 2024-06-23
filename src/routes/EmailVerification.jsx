@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 60px; /* Add padding to account for the logo height */
+  padding-top: -10px; /* Add padding to account for the logo height */
 `;
 
 const Logo = styled.img`
@@ -91,6 +91,7 @@ const EmailVerification = () => {
     const { name, dateOfBirth, institution } = location.state;
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
+    const [password, setPassword] = useState('')
     
     // func for clicking confirm button, save user information 
     const handleConfirm = async (e) => {
@@ -101,6 +102,7 @@ const EmailVerification = () => {
         institution,
         email,
         created_at: new Date(),
+        password
       };
   
       try {
@@ -120,14 +122,17 @@ const EmailVerification = () => {
         <Logo src="/assets/Logo.png" alt="EduHive Logo" /> {/* Ensure the correct path to your image */}
         <Container>
           <FormContainer>
-            <Title>Input your email, click “Verify”, Check your email and get verification code</Title>
+            <Title>Set your new password, input your email, click “Verify”, Check your email and get verification code</Title>
+            <Row>
+              <Input type="text" placeholder='New Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            </Row>
             <Row>
               <Input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
               <SmallButton>Verify</SmallButton>
             </Row>
             <Row>
               <Input type="text" placeholder="Verification Code" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} />
-              <SmallButton onClick={handleConfirm}>Confirm</SmallButton>
+              <SmallButton onClick={handleConfirm}>SignUp</SmallButton>
             </Row>
           </FormContainer>
           <Image src="/assets/Hive.png" alt="Verification" />
