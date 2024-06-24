@@ -4,7 +4,12 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDB, EduUser } = require("./database");
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+
+
 const port = 3000
+const EMAIL_SENDER = "cuiyifan00422@gmail.com";
+const EMAIL_PASSWORD = "bngagdgrkvwonwgu";
 
 const app = express();
 app.use(cors());
@@ -51,6 +56,35 @@ app.post("/login", asyncHandler(async (req, res) => {
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const { email, code } = req.body;
 
+
+    if (!email || !code) {
+        return res.status(400).json({ message: "Invalid email or code", success: false});
+    }
+    
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: EMAIL_SENDER,
+          pass: EMAIL_PASSWORD
+        }
+      });
+
+    const emailContent = {
+        from: EMAIL_SENDER,
+        to: email,
+        subject: "Email Verification",
+        text: `Your verification code is ${code}`,
+    };
+
+    transporter.sendMail(emailContent, (error) => {
+        if (error) {
+            console.log(error);
+            return res.status(500).json({ message: "Error sending verification email", success: false });
+        }
+        res.status(200).json({ message: "Successfully sent verification email", success: true });
+      });
 }));
 
 async function start() {
