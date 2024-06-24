@@ -30,6 +30,16 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
+/* Endpoint to send verification email with a code
+    Input: req.body = {email, code} ; email string, code string
+    Output: if succeed: res.status(200).json({ message: "Verification email sent successfully" });
+            if error: res.status(500).send('Error sending verification email');
+*/
+app.post("/send-verification-email", asyncHandler(async (req, res) => {
+    const { email, code } = req.body;
+
+}));
+
 async function start() {
     await connectToDB();
 
