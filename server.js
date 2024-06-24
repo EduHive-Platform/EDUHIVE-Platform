@@ -30,8 +30,21 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
+/* Endpoint of user's login 
+    Input: req.body = { email, password } ; email string, code string
+    Output: if succeed: res.status(200).json({ message: "Login successfully" });
+            if no user: return res.status(400).json({ message: "Invalid email or password" });
+            if incorrect password: return res.status(400).json({ message: "Invalid email or password" });
+    suggest using bcrypt.compare(password, user.password_hash);
+*/
+app.post("/login", asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+}))
+
+
 /* Endpoint to send verification email with a code
-    Input: req.body = {email, code} ; email string, code string
+    Input: req.body = { email, code } ; email string, code string
     Output: if succeed: res.status(200).json({ message: "Verification email sent successfully" });
             if error: res.status(500).send('Error sending verification email');
 */

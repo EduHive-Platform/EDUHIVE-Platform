@@ -92,6 +92,7 @@ const EmailVerification = () => {
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [password, setPassword] = useState('')
+    const [generatedCode, setGeneratedCode] = useState('');
 
     // func for clicking verify button, send verification code email 
     const handleSendCode = async () => {
