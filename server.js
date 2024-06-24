@@ -5,11 +5,13 @@ const bodyParser = require("body-parser");
 const { connectToDB, EduUser } = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
 
+dotenv.config();
 
 const port = 3000
-const EMAIL_SENDER = "cuiyifan00422@gmail.com";
-const EMAIL_PASSWORD = "bngagdgrkvwonwgu";
+
+
 
 const app = express();
 app.use(cors());
@@ -56,6 +58,8 @@ app.post("/login", asyncHandler(async (req, res) => {
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const { email, code } = req.body;
 
+    email_sender = process.env.EMAIL_SENDER;
+    email_password = process.env.EMAIL_PASSWORD;
 
     if (!email || !code) {
         return res.status(400).json({ message: "Invalid email or code", success: false});
@@ -66,13 +70,13 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: EMAIL_SENDER,
-          pass: EMAIL_PASSWORD
+          user: email_sender,
+          pass: email_password
         }
       });
 
     const emailContent = {
-        from: EMAIL_SENDER,
+        from: email_sender,
         to: email,
         subject: "Eduhive login email verification code",
         text: `Your verification code is ${code}\n\nEduhive Team`,
