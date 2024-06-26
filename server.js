@@ -78,7 +78,7 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const emailContent = {
         from: email_sender,
         to: email,
-        subject: "Eduhive login email verification code",
+        subject: "Eduhive login verification code",
         text: `Your verification code is ${code}\n\nEduhive Team`,
     };
 
