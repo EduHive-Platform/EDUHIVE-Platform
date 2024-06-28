@@ -26,7 +26,7 @@
   .func-button {
     padding: 10px 20px;
     margin-bottom: 10px;
-    background-color: #007bff;
+    background-color: #116E6A;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -35,7 +35,7 @@
   }
   
   .func-button:hover {
-    background-color: #0056b3;
+    background-color: #116E6A;
   }
   
   .func-image img {
