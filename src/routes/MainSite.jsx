@@ -7,9 +7,10 @@
 
 import React from 'react';
 import HeaderMain from '../components/HeaderMain';
-import HeroSection from '../components/HeroSection';
+import FuncMain from '../components/FuncMain';
 import Benefits from '../components/Benefits';
 import Services from '../components/Services';
+import PictureMain from '../components/PictureMain';
 import FooterMain from '../components/FooterMain';
 
 const Main = () => {
@@ -17,9 +18,8 @@ const Main = () => {
     <div>
       <HeaderMain />
       <main>
-        <HeroSection />
-        <Benefits />
-        <Services />
+        <FuncMain />
+        <PictureMain />
       </main>
       <FooterMain />
     </div>

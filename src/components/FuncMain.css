@@ -1,0 +1,45 @@
+/* FuncMain.css */
+
+.func-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #f8f9fa;
+  }
+  
+  .func-content {
+    max-width: 50%;
+  }
+  
+  .func-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .func-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .func-button {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .func-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .func-image img {
+    max-width: 400px;
+    height: auto;
+  }
+  
