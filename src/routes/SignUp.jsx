@@ -58,7 +58,7 @@ const Logo = styled.img`
 
 
 const SignUp = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // pass name, dateOfBirth, institution with the state containing the form data
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [institution, setInstitution] = useState('');
@@ -71,7 +71,7 @@ const SignUp = () => {
       <Container>
         <FormContainer>
           <Logo src="/assets/Logo.png" alt="EduHive Logo" /> {/* Ensure the correct path to your image */}
-          <Title>Start your journey by inputting basic information :)</Title>
+          <Title>Start your journey by inputting basic information</Title>
           <Input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <Input type="date" placeholder="Date of Birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
           <Input type="text" placeholder="Institution" value={institution} onChange={(e) => setInstitution(e.target.value)} />
