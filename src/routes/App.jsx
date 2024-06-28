@@ -6,7 +6,8 @@
 */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import MainPage from './MainPage';
+import MainPage from './LoginMain';
+import Main from './MainSite';
 import Login from './Login';
 import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
@@ -17,7 +18,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Login />} />
-        
+        <Route path="/main" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="*" element={<NotFound />} />

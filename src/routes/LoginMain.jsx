@@ -1,5 +1,5 @@
 /* 
-  Route: /main
+  Route: /mainPage
   Created: 2024-06-24
   Last Modified: 2024-06-24
   Author: Zihan Zhao
