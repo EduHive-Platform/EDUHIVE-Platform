@@ -37,6 +37,17 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
+/* Endpoint of saving user's project into the table
+    Input: req.body = { email, project } ; email string, project string 
+    Output: if succeed: res.status(200).json(EduUser);
+            if no user with the email: return res.status(400).json({ message: "no user with that email" });
+            if no project: return res.status(400).json({ message: "no such project" });
+*/
+app.post("/save-project", asyncHandler(async (req, res) => {
+    const { email, EduUser } = req.body;
+
+}))
+
 /* Endpoint of user's login 
     Input: req.body = { email, password } ; email string, code string
     Output: if succeed: res.status(200).json({ message: "Login successfully" });
