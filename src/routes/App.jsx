@@ -17,8 +17,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/main" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="*" element={<NotFound />} />

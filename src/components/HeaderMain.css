@@ -11,6 +11,7 @@
   
   .nav {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
   }
@@ -37,6 +38,12 @@
     color: #116E6A;
   }
   
+  .nav-logo {
+    margin: 0;
+    padding: 0 5px;
+    flex-shrink: 0;
+  }
+  
   .nav-logo a {
     text-decoration: none;
     color: #116E6A;
@@ -46,5 +53,10 @@
   
   .nav-logo a:hover {
     color: #0056b3;
+  }
+  
+  .nav-list-left, .nav-list-right {
+    display: flex;
+    align-items: center;
   }
   
