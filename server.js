@@ -9,9 +9,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const port = 3000
-
-
+const port = 3000;
 
 const app = express();
 app.use(cors());
@@ -20,10 +18,20 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"));
 
+// Log incoming requests for debugging
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
     const { name, dateOfBirth, institution, email, created_at, password } = req.body;
-    password_hash = await bcrypt.hash(password, 10);
+    if (!name || !dateOfBirth || !institution || !email || !password) {
+        return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const password_hash = await bcrypt.hash(password, 10);
     const newUser = new EduUser({
         username: name,
         password_hash,
@@ -37,45 +45,61 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
-/* Endpoint of saving user's project into the table
-    Input: req.body = { email, project } ; email string, project string 
-    Output: if succeed: res.status(200).json(EduUser);
-            if no user with the email: return res.status(400).json({ message: "no user with that email" });
-            if no project: return res.status(400).json({ message: "no such project" });
-*/
+// Endpoint of saving user's project into the table
 app.post("/save-project", asyncHandler(async (req, res) => {
-    const { email, EduUser } = req.body;
+    const { email, project } = req.body;
 
-}))
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
 
-/* Endpoint of user's login 
-    Input: req.body = { email, password } ; email string, code string
-    Output: if succeed: res.status(200).json({ message: "Login successfully" });
-            if no user: return res.status(400).json({ message: "Invalid email or password" });
-            if incorrect password: return res.status(400).json({ message: "Invalid email or password" });
-    suggest using bcrypt.compare(password, user.password_hash);
-*/
+    const user = await EduUser.findOne({ email });
+
+    if (!user) {
+        return res.status(400).json({ message: "No user with that email" });
+    }
+
+    user.projects = user.projects || [];
+    user.projects.push(project);
+    await user.save();
+
+    res.status(200).json(user);
+}));
+
+// Endpoint of user's login
 app.post("/login", asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-}))
+    if (!email || !password) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
 
+    const user = await EduUser.findOne({ email });
 
-/* Endpoint to send verification email with a code
-    Input: req.body = { email, code } ; email string, code string
-    Output: if succeed: res.status(200).json({ message: "Verification email sent successfully" });
-            if error: res.status(500).send('Error sending verification email');
-*/
+    if (!user) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatch) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json({ message: "Login successfully", user });
+}));
+
+// Endpoint to send verification email with a code
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const { email, code } = req.body;
 
-    email_sender = process.env.EMAIL_SENDER;
-    email_password = process.env.EMAIL_PASSWORD;
+    const email_sender = process.env.EMAIL_SENDER;
+    const email_password = process.env.EMAIL_PASSWORD;
 
     if (!email || !code) {
-        return res.status(400).json({ message: "Invalid email or code", success: false});
+        return res.status(400).json({ message: "Invalid email or code", success: false });
     }
-    
+
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -84,7 +108,7 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
           user: email_sender,
           pass: email_password
         }
-      });
+    });
 
     const emailContent = {
         from: email_sender,
@@ -99,19 +123,18 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
             return res.status(500).json({ message: "Error sending verification email", success: false });
         }
         res.status(200).json({ message: "Successfully sent verification email", success: true });
-      });
+    });
 }));
 
+// Connect to the database and start the server
 async function start() {
     await connectToDB();
 
     return app.listen(port, () => {
-        console.log("Listening on port 3000");
+        console.log(`Listening on port ${port}`);
     });
 }
 
 if (require.main === module) {
     start().catch((err) => console.error(err));
 }
-
-
