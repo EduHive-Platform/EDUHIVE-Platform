@@ -56,14 +56,14 @@ app.post("/save-project", asyncHandler(async (req, res) => {
     const user = await EduUser.findOne({ email });
 
     if (!user) {
-        return res.status(400).json({ message: "No user with that email" });
+        return res.status(400).json({ message: "No user with that email!" });
     }
 
     user.projects = user.projects || [];
     user.projects.push(project);
     await user.save();
 
-    res.status(200).json(user);
+    res.status(200).json({user, message:"project saved successfully"});
 }));
 
 // Endpoint of user's login
