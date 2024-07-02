@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project } = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes} = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -154,6 +154,37 @@ app.delete("/projects/:id", asyncHandler(async (req, res) => {
     }
     res.status(200).json({ message: "Project deleted successfully" });
 }));
+
+// Get projects by partial title match
+app.get("/projects/title/:title", asyncHandler(async (req, res) => {
+    const projectTitle = req.params.title;
+    const projects = await Project.find({ title: { $regex: projectTitle, $options: 'i' } });
+    if (projects.length === 0) {
+        return res.status(404).json({ message: "No projects found with that title" });
+    }
+    res.status(200).json(projects);
+}));
+
+// Get communities by partial name match
+app.get("/communities/name/:name", asyncHandler(async (req, res) => {
+    const communityName = req.params.name;
+    const communities = await Community.find({ community_name: { $regex: communityName, $options: 'i' } });
+    if (communities.length === 0) {
+        return res.status(404).json({ message: "No communities found with that name" });
+    }
+    res.status(200).json(communities);
+}));
+
+// Get all users by partial name match
+app.get("/users/name/:name", asyncHandler(async (req, res) => {
+    const userName = req.params.name;
+    const users = await EduUser.find({ username: { $regex: userName, $options: 'i' } });
+    if (users.length === 0) {
+        return res.status(404).json({ message: "No users found with that name" });
+    }
+    res.status(200).json(users);
+}));
+
 
 async function start() {
     await connectToDB();

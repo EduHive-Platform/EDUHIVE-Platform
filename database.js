@@ -38,7 +38,40 @@ const projectSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now }
 });
 
+const commentSchema = new mongoose.Schema({
+    comment_id: Number,
+    project_id: Number,
+    user_id: Number,
+    content: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
+});
+
+const communitySchema = new mongoose.Schema({
+    community_id: Number,
+    community_name: String,
+    description: String,
+    joined_at: { type: Date, default: Date.now },
+});
+
+const userCommunitySchema = new mongoose.Schema({
+    user_id: Number,
+    community_id: Number,
+    create_at: { type: Date, default: Date.now },
+});
+
+const likesSchema = new mongoose.Schema({
+    like_id: Number,
+    project_id: Number,
+    user_id: Number,
+    create_at: { type: Date, default: Date.now },
+});
+
 const EduUser = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+const Community = mongoose.model('Community', communitySchema);
+const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
+const Likes = mongoose.model('Likes', likesSchema);
 
-module.exports = { connectToDB, EduUser, Project };
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes};
