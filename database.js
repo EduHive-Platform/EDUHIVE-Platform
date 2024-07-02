@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbPassword = 'Any8XVviiJzZEh9A'
-const dbConnectionUri = `mongodb+srv://zihanzhao1117:${dbPassword}@cluster0.ftgatsn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const dbPassword = 'Any8XVviiJzZEh9A';
+const dbConnectionUri = `mongodb+srv://zihanzhao1117:${dbPassword}@cluster0.ftgatsn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const dbName = "eduhive";
 
 // MongoDB Connection
@@ -23,6 +23,22 @@ const userSchema = new mongoose.Schema({
     project: String 
 });
 
-const EduUser = mongoose.model('User', userSchema);
+const projectSchema = new mongoose.Schema({
+    project_id: Number,
+    user_id: Number,
+    community_id: Number,
+    title: String,
+    content: String,
+    status: String,
+    requirement_type: {
+        working_exp: String,
+        tech_stack: [String]
+    },
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
+});
 
-module.exports = { connectToDB, EduUser };
+const EduUser = mongoose.model('User', userSchema);
+const Project = mongoose.model('Project', projectSchema);
+
+module.exports = { connectToDB, EduUser, Project };

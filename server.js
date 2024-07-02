@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser } = require("./database");
+const { connectToDB, EduUser, Project } = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -18,19 +18,9 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"));
 
-// Log incoming requests for debugging
-app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`);
-    next();
-});
-
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
     const { name, dateOfBirth, institution, email, created_at, password } = req.body;
-    if (!name || !dateOfBirth || !institution || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
-    }
-
     const password_hash = await bcrypt.hash(password, 10);
     const newUser = new EduUser({
         username: name,
@@ -45,7 +35,6 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
-// Endpoint of saving user's project into the table
 app.post("/save-project", asyncHandler(async (req, res) => {
     const { email, project } = req.body;
 
@@ -56,17 +45,16 @@ app.post("/save-project", asyncHandler(async (req, res) => {
     const user = await EduUser.findOne({ email });
 
     if (!user) {
-        return res.status(400).json({ message: "No user with that email!" });
+        return res.status(400).json({ message: "No user with that email" });
     }
 
     user.projects = user.projects || [];
     user.projects.push(project);
     await user.save();
 
-    res.status(200).json({user, message:"project saved successfully"});
+    res.status(200).json(user);
 }));
 
-// Endpoint of user's login
 app.post("/login", asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
@@ -86,10 +74,9 @@ app.post("/login", asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    res.status(200).json({ message: "Login successfully", user });
+    res.status(200).json({ message: "Login successfully", data: user });
 }));
 
-// Endpoint to send verification email with a code
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const { email, code } = req.body;
 
@@ -105,8 +92,8 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
         port: 465,
         secure: true,
         auth: {
-          user: email_sender,
-          pass: email_password
+            user: email_sender,
+            pass: email_password
         }
     });
 
@@ -126,12 +113,53 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
     });
 }));
 
-// Connect to the database and start the server
+// CRUD operations for project
+
+// Get all projects
+app.get("/projects", asyncHandler(async (req, res) => {
+    const projects = await Project.find();
+    res.status(200).json(projects);
+}));
+
+// Get project by ID
+app.get("/projects/:id", asyncHandler(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json(project);
+}));
+
+// Create a new project
+app.post("/projects", asyncHandler(async (req, res) => {
+    const newProject = new Project(req.body);
+    await newProject.save();
+    res.status(201).json(newProject);
+}));
+
+// Update a project
+app.put("/projects/:id", asyncHandler(async (req, res) => {
+    const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedProject) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json(updatedProject);
+}));
+
+// Delete a project
+app.delete("/projects/:id", asyncHandler(async (req, res) => {
+    const deletedProject = await Project.findByIdAndDelete(req.params.id);
+    if (!deletedProject) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json({ message: "Project deleted successfully" });
+}));
+
 async function start() {
     await connectToDB();
 
     return app.listen(port, () => {
-        console.log(`Listening on port ${port}`);
+        console.log("Listening on port 3000");
     });
 }
 
