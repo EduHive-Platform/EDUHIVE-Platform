@@ -61,10 +61,10 @@ const userCommunitySchema = new mongoose.Schema({
 });
 
 const likesSchema = new mongoose.Schema({
-    like_id: Number,
-    project_id: Number,
-    user_id: Number,
-    create_at: { type: Date, default: Date.now },
+    like_id: { type: Number, required: true, unique: true },
+    post_id: { type: Number, required: true },
+    user_id: { type: Number, required: true },
+    created_at: { type: Date, default: Date.now }
 });
 
 const EduUser = mongoose.model('User', userSchema);

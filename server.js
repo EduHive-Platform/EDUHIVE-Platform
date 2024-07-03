@@ -207,6 +207,48 @@ app.get("/projects/title/:title", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
+// CRUD operations for likes
+
+// Get all likes
+app.get("/likes", asyncHandler(async (req, res) => {
+    const likes = await Likes.find();
+    res.status(200).json(likes);
+}));
+
+// Get like by ID
+app.get("/likes/:id", asyncHandler(async (req, res) => {
+    const likes = await Likes.findById(req.params.id);
+    if (!likes) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json(likes);
+}));
+
+// Create a new like
+app.post("/likes", asyncHandler(async (req, res) => {
+    const newLike = new Likes(req.body);
+    await newLike.save();
+    res.status(201).json(newLike);
+}));
+
+// Update a like
+app.put("/likes/:id", asyncHandler(async (req, res) => {
+    const updatedLike = await Likes.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedLike) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json(updatedLike);
+}));
+
+// Delete a like
+app.delete("/likes/:id", asyncHandler(async (req, res) => {
+    const deletedLike = await Likes.findByIdAndDelete(req.params.id);
+    if (!deletedLike) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json({ message: "Likes deleted successfully" });
+}));
+
 // Get communities by partial name match
 app.get("/communities/name/:name", asyncHandler(async (req, res) => {
     const communityName = req.params.name;
