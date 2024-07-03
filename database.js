@@ -39,12 +39,12 @@ const projectSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-    comment_id: Number,
-    project_id: Number,
-    user_id: Number,
-    content: String,
-    create_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now }
+    comment_id: { type: Number, required: true, unique: true },
+    project_id: { type: Number, required: true },
+    user_id: { type: Number, required: true },
+    content: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
 });
 
 const communitySchema = new mongoose.Schema({

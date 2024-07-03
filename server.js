@@ -155,6 +155,48 @@ app.delete("/projects/:id", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Project deleted successfully" });
 }));
 
+// CRUD operations for comment
+
+// Get all comments
+app.get("/comments", asyncHandler(async (req, res) => {
+    const comments = await Comment.find();
+    res.status(200).json(comments);
+}));
+
+// Get comment by ID
+app.get("/comments/:id", asyncHandler(async (req, res) => {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json(comment);
+}));
+
+// Create a new comment
+app.post("/comments", asyncHandler(async (req, res) => {
+    const newComment = new Comment(req.body);
+    await newComment.save();
+    res.status(201).json(newComment);
+}));
+
+// Update a comment
+app.put("/comments/:id", asyncHandler(async (req, res) => {
+    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedComment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json(updatedComment);
+}));
+
+// Delete a comment
+app.delete("/comments/:id", asyncHandler(async (req, res) => {
+    const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+    if (!deletedComment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json({ message: "Comment deleted successfully" });
+}));
+
 // Get projects by partial title match
 app.get("/projects/title/:title", asyncHandler(async (req, res) => {
     const projectTitle = req.params.title;
