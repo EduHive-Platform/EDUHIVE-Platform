@@ -1,7 +1,7 @@
 /* 
   Route: /mainPage
   Created: 2024-06-24
-  Last Modified: 2024-06-24
+  Last Modified: 2024-07-05
   Author: Zihan Zhao
 */
 import React, { useState } from 'react'; 
