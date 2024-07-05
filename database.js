@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbPassword = 'Any8XVviiJzZEh9A'
-const dbConnectionUri = `mongodb+srv://zihanzhao1117:${dbPassword}@cluster0.ftgatsn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const dbPassword = 'Any8XVviiJzZEh9A';
+const dbConnectionUri = `mongodb+srv://zihanzhao1117:${dbPassword}@cluster0.ftgatsn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const dbName = "eduhive";
 
 // MongoDB Connection
@@ -23,6 +23,55 @@ const userSchema = new mongoose.Schema({
     project: String 
 });
 
-const EduUser = mongoose.model('User', userSchema);
+const projectSchema = new mongoose.Schema({
+    project_id: Number,
+    user_id: Number,
+    community_id: Number,
+    title: String,
+    content: String,
+    status: String,
+    requirement_type: {
+        working_exp: String,
+        tech_stack: [String]
+    },
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
+});
 
-module.exports = { connectToDB, EduUser };
+const commentSchema = new mongoose.Schema({
+    comment_id: { type: Number, required: true, unique: true },
+    project_id: { type: Number, required: true },
+    user_id: { type: Number, required: true },
+    content: { type: String, required: true },
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
+});
+
+const communitySchema = new mongoose.Schema({
+    community_id: Number,
+    community_name: String,
+    description: String,
+    joined_at: { type: Date, default: Date.now },
+});
+
+const userCommunitySchema = new mongoose.Schema({
+    user_id: Number,
+    community_id: Number,
+    create_at: { type: Date, default: Date.now },
+});
+
+const likesSchema = new mongoose.Schema({
+    like_id: { type: Number, required: true, unique: true },
+    post_id: { type: Number, required: true },
+    user_id: { type: Number, required: true },
+    created_at: { type: Date, default: Date.now }
+});
+
+const EduUser = mongoose.model('User', userSchema);
+const Project = mongoose.model('Project', projectSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+const Community = mongoose.model('Community', communitySchema);
+const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
+const Likes = mongoose.model('Likes', likesSchema);
+
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes};

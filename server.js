@@ -2,16 +2,14 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser } = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes} = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const port = 3000
-
-
+const port = 3000;
 
 const app = express();
 app.use(cors());
@@ -23,7 +21,7 @@ app.use(express.static(__dirname + "/public"));
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
     const { name, dateOfBirth, institution, email, created_at, password } = req.body;
-    password_hash = await bcrypt.hash(password, 10);
+    const password_hash = await bcrypt.hash(password, 10);
     const newUser = new EduUser({
         username: name,
         password_hash,
@@ -37,54 +35,67 @@ app.post("/save-user", asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User saved successfully", data: newUser });
 }));
 
-/* Endpoint of saving user's project into the table
-    Input: req.body = { email, project } ; email string, project string 
-    Output: if succeed: res.status(200).json(EduUser);
-            if no user with the email: return res.status(400).json({ message: "no user with that email" });
-            if no project: return res.status(400).json({ message: "no such project" });
-*/
 app.post("/save-project", asyncHandler(async (req, res) => {
-    const { email, EduUser } = req.body;
+    const { email, project } = req.body;
 
-}))
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
 
-/* Endpoint of user's login 
-    Input: req.body = { email, password } ; email string, code string
-    Output: if succeed: res.status(200).json({ message: "Login successfully" });
-            if no user: return res.status(400).json({ message: "Invalid email or password" });
-            if incorrect password: return res.status(400).json({ message: "Invalid email or password" });
-    suggest using bcrypt.compare(password, user.password_hash);
-*/
+    const user = await EduUser.findOne({ email });
+
+    if (!user) {
+        return res.status(400).json({ message: "No user with that email" });
+    }
+
+    user.projects = user.projects || [];
+    user.projects.push(project);
+    await user.save();
+
+    res.status(200).json(user);
+}));
+
 app.post("/login", asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-}))
+    if (!email || !password) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
 
+    const user = await EduUser.findOne({ email });
 
-/* Endpoint to send verification email with a code
-    Input: req.body = { email, code } ; email string, code string
-    Output: if succeed: res.status(200).json({ message: "Verification email sent successfully" });
-            if error: res.status(500).send('Error sending verification email');
-*/
+    if (!user) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatch) {
+        return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json({ message: "Login successfully", data: user });
+}));
+
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
     const { email, code } = req.body;
 
-    email_sender = process.env.EMAIL_SENDER;
-    email_password = process.env.EMAIL_PASSWORD;
+    const email_sender = process.env.EMAIL_SENDER;
+    const email_password = process.env.EMAIL_PASSWORD;
 
     if (!email || !code) {
-        return res.status(400).json({ message: "Invalid email or code", success: false});
+        return res.status(400).json({ message: "Invalid email or code", success: false });
     }
-    
+
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
-          user: email_sender,
-          pass: email_password
+            user: email_sender,
+            pass: email_password
         }
-      });
+    });
 
     const emailContent = {
         from: email_sender,
@@ -99,8 +110,165 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
             return res.status(500).json({ message: "Error sending verification email", success: false });
         }
         res.status(200).json({ message: "Successfully sent verification email", success: true });
-      });
+    });
 }));
+
+// CRUD operations for project
+
+// Get all projects
+app.get("/projects", asyncHandler(async (req, res) => {
+    const projects = await Project.find();
+    res.status(200).json(projects);
+}));
+
+// Get project by ID
+app.get("/projects/:id", asyncHandler(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json(project);
+}));
+
+// Create a new project
+app.post("/projects", asyncHandler(async (req, res) => {
+    const newProject = new Project(req.body);
+    await newProject.save();
+    res.status(201).json(newProject);
+}));
+
+// Update a project
+app.put("/projects/:id", asyncHandler(async (req, res) => {
+    const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedProject) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json(updatedProject);
+}));
+
+// Delete a project
+app.delete("/projects/:id", asyncHandler(async (req, res) => {
+    const deletedProject = await Project.findByIdAndDelete(req.params.id);
+    if (!deletedProject) {
+        return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json({ message: "Project deleted successfully" });
+}));
+
+// CRUD operations for comment
+
+// Get all comments
+app.get("/comments", asyncHandler(async (req, res) => {
+    const comments = await Comment.find();
+    res.status(200).json(comments);
+}));
+
+// Get comment by ID
+app.get("/comments/:id", asyncHandler(async (req, res) => {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json(comment);
+}));
+
+// Create a new comment
+app.post("/comments", asyncHandler(async (req, res) => {
+    const newComment = new Comment(req.body);
+    await newComment.save();
+    res.status(201).json(newComment);
+}));
+
+// Update a comment
+app.put("/comments/:id", asyncHandler(async (req, res) => {
+    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedComment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json(updatedComment);
+}));
+
+// Delete a comment
+app.delete("/comments/:id", asyncHandler(async (req, res) => {
+    const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+    if (!deletedComment) {
+        return res.status(404).json({ message: "Comment not found" });
+    }
+    res.status(200).json({ message: "Comment deleted successfully" });
+}));
+
+// Get projects by partial title match
+app.get("/projects/title/:title", asyncHandler(async (req, res) => {
+    const projectTitle = req.params.title;
+    const projects = await Project.find({ title: { $regex: projectTitle, $options: 'i' } });
+    if (projects.length === 0) {
+        return res.status(404).json({ message: "No projects found with that title" });
+    }
+    res.status(200).json(projects);
+}));
+
+// CRUD operations for likes
+
+// Get all likes
+app.get("/likes", asyncHandler(async (req, res) => {
+    const likes = await Likes.find();
+    res.status(200).json(likes);
+}));
+
+// Get like by ID
+app.get("/likes/:id", asyncHandler(async (req, res) => {
+    const likes = await Likes.findById(req.params.id);
+    if (!likes) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json(likes);
+}));
+
+// Create a new like
+app.post("/likes", asyncHandler(async (req, res) => {
+    const newLike = new Likes(req.body);
+    await newLike.save();
+    res.status(201).json(newLike);
+}));
+
+// Update a like
+app.put("/likes/:id", asyncHandler(async (req, res) => {
+    const updatedLike = await Likes.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedLike) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json(updatedLike);
+}));
+
+// Delete a like
+app.delete("/likes/:id", asyncHandler(async (req, res) => {
+    const deletedLike = await Likes.findByIdAndDelete(req.params.id);
+    if (!deletedLike) {
+        return res.status(404).json({ message: "Likes not found" });
+    }
+    res.status(200).json({ message: "Likes deleted successfully" });
+}));
+
+// Get communities by partial name match
+app.get("/communities/name/:name", asyncHandler(async (req, res) => {
+    const communityName = req.params.name;
+    const communities = await Community.find({ community_name: { $regex: communityName, $options: 'i' } });
+    if (communities.length === 0) {
+        return res.status(404).json({ message: "No communities found with that name" });
+    }
+    res.status(200).json(communities);
+}));
+
+// Get all users by partial name match
+app.get("/users/name/:name", asyncHandler(async (req, res) => {
+    const userName = req.params.name;
+    const users = await EduUser.find({ username: { $regex: userName, $options: 'i' } });
+    if (users.length === 0) {
+        return res.status(404).json({ message: "No users found with that name" });
+    }
+    res.status(200).json(users);
+}));
+
 
 async function start() {
     await connectToDB();
@@ -113,5 +281,3 @@ async function start() {
 if (require.main === module) {
     start().catch((err) => console.error(err));
 }
-
-
