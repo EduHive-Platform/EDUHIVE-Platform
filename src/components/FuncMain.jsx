@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const FuncMain = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate('/login');
+    navigate('/loginWithEmail');
   };
 
   return (
