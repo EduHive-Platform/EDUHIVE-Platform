@@ -8,8 +8,6 @@
 import React from 'react';
 import HeaderMain from '../components/HeaderMain';
 import FuncMain from '../components/FuncMain';
-import Benefits from '../components/Benefits';
-import Services from '../components/Services';
 import PictureMain from '../components/PictureMain';
 import FooterMain from '../components/FooterMain';
 

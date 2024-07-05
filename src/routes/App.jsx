@@ -6,7 +6,7 @@
 */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import MainPage from './LoginMain';
+import LoginEmail from './LoginWithEmail';
 import Main from './MainSite';
 import Login from './Login';
 import SignUp from './SignUp';
@@ -18,6 +18,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/loginWithEmail" element={<LoginEmail />} />
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />

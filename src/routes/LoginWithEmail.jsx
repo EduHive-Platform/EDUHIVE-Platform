@@ -5,7 +5,7 @@
   Author: Zihan Zhao
 */
 
-const MainPage = () => {
+const LoginEmail = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -48,4 +48,4 @@ const MainPage = () => {
       );
 };
 
-export default MainPage;
+export default LoginEmail;
