@@ -6,6 +6,7 @@
 */
 import React, { useState } from 'react'; 
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Logo = styled.img`
   height: 120px;
@@ -95,7 +96,7 @@ const LoginEmail = () => {
     
         try {
           const response = await axios.post('http://localhost:3000/login', userData);
-          console.log(response.data);
+          console.log("the reponse is" + response.data);
           /* Redirect or update UI based on the response 
              TODO
           */
