@@ -111,7 +111,7 @@ const LoginEmail = () => {
           <Logo src="/assets/Logo.png" alt="EduHive Logo" />
           <Container>
             <FormContainer>
-              <Title>Login by typing your email and password</Title>
+              <Title>Login</Title>
               <Row>
                 <Input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
               </Row>
