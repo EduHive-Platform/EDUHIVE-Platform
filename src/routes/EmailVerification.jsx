@@ -55,6 +55,9 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  &:hover {
+    background-color: grey
+  }
   width: 100%;
   padding: 10px;
   background-color: #116E6A;
@@ -93,7 +96,6 @@ const EmailVerification = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [password, setPassword] = useState('')
     const [generatedCode, setGeneratedCode] = useState('');
-
     // func for clicking verify button, send verification code email 
     const handleSendCode = async () => {
       const code = Math.floor(1000 + Math.random() * 9000).toString(); // Generate a random 4-digit code
@@ -143,7 +145,7 @@ const EmailVerification = () => {
           <FormContainer>
             <Title>Set your new password, input your email, click “Verify”, Check your email and get verification code</Title>
             <Row>
-              <Input type="text" placeholder='New Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input type="password" placeholder='New Password' value={password} onChange={(e) => setPassword(e.target.value)} />
             </Row>
             <Row>
               <Input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />

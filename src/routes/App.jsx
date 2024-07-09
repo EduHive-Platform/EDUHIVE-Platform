@@ -11,6 +11,7 @@ import Main from './MainSite';
 import Login from './Login';
 import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
+import StudentPost from './StudentPost';
 import NotFound from './NotFound';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
+        <Route path='/studentPost' element={<StudentPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

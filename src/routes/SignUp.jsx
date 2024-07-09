@@ -41,6 +41,9 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  &:hover {
+    background-color: grey
+  }
   width: 100%;
   padding: 10px;
   background-color: #116E6A;
