@@ -7,6 +7,9 @@ const FuncMain = () => {
   const handleLogin = () => {
     navigate('/loginWithEmail');
   };
+  const handleSignUp = () => {
+    navigate('/login');
+  };
 
   return (
     <section className="func-main">
@@ -14,7 +17,7 @@ const FuncMain = () => {
         <h1>Start your Startup, Research, and Graduate School in ...</h1>
         <div className="func-buttons">
           <button className="func-button" onClick={handleLogin}>Login the EduHive</button>
-          <button className="func-button" onClick={handleLogin}>Signup the EduHive</button>
+          <button className="func-button" onClick={handleSignUp}>Signup the EduHive</button>
         </div>
       </div>
       <div className="func-image">
