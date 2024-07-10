@@ -1,24 +1,27 @@
+// HeaderMain.jsx
 import React from 'react';
 import './HeaderMain.css';
 
-const HeaderMain = () => {
+const HeaderMain = ({ leftLinks, rightLinks }) => {
   return (
-    <header className="header">
-      <nav className="nav">
-        <ul className="nav-list">
-          <li className="nav-item"><a href="/solutions">Solutions</a></li>
-          <li className="nav-item"><a href="/about">About</a></li>
-          <li className="nav-item"><a href="/insights">Insights</a></li>
-          <li className="nav-item"><a href="/contact">Contact</a></li>
-        </ul>
-        <div className="nav-logo">
-          <a href="/main">EduHive</a>
-        </div>
-        <ul className="nav-list">
-          <li className="nav-item"><a href="https://linkedin.com">LinkedIn</a></li>
-          <li className="nav-item"><a href="https://instagram.com">Instagram</a></li>
-        </ul>
-      </nav>
+    <header className="header-main">
+      <div className="left-links">
+        {leftLinks.map((link, index) => (
+          <a key={index} href={link.href} className="nav-link">
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <div className="logo">
+        <span className="logo-edu">Edu</span><span className="logo-hive">Hive</span>
+      </div>
+      <div className="right-links">
+        {rightLinks.map((link, index) => (
+          <a key={index} href={link.href} className="nav-link">
+            {link.label}
+          </a>
+        ))}
+      </div>
     </header>
   );
 };
