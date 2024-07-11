@@ -1,4 +1,4 @@
-// HeaderMain.jsx
+// HeaderMain.jsx, used for mainsite header alone
 import React from 'react';
 import './HeaderMain.css';
 

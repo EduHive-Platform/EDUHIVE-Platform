@@ -12,6 +12,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import NotFound from './NotFound';
+import Square from './Square'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/loginWithEmail" element={<LoginEmail />} />
+        <Route path="/square" element={<Square />} />
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />

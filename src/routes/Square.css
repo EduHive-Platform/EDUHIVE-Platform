@@ -1,0 +1,5 @@
+/* Square.css */
+.square-page {
+    display: flex;
+    height: 100vh; /* Ensure it takes full height */
+  }
