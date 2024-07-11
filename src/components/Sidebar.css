@@ -27,7 +27,8 @@
     font-size: 18px;
     padding-left: 10px; /* Space to the left of each link */
     display: block;
-    font-family:'Times New Roman', Times, serif
+    font-family:'Times New Roman', Times, serif;
+    padding: 10px; /* Adding padding for better spacing */
   }
   
   .sidebar a.nav-link:hover {
@@ -44,6 +45,10 @@
     margin: 15px 0;
   }
   
+  .sidebar a.nav-link:hover {
+    text-decoration: underline;
+    background-color: #d3d3d3; /* Change background to gray on hover */
+  }
 
   .sub-links a.nav-link {
     font-size: 15px; /* Smaller font for sub-links */
