@@ -17,7 +17,7 @@
   }
   
   .sidebar li {
-    margin: 10px 0;
+    margin: 35px 0;
     border-bottom: 1px solid #ddd; /* Thin line between each link */
   }
   
@@ -37,11 +37,11 @@
   .sub-links {
     list-style-type: none;
     padding-left: 20px; /* Indent sub-links */
-    margin: 5px 0 0;
+    margin: 8px 0 0;
   }
   
   .sub-links li {
-    margin: 5px 0;
+    margin: 15px 0;
   }
   
 
