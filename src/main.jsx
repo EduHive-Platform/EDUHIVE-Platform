@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import App from './routes/App.jsx';
-import './index.css';
+import App from './routes/App'; // Adjust import path if needed
+import './index.css'; // Ensure the global CSS is imported
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,4 +14,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-

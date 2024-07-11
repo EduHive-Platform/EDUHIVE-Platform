@@ -1,9 +1,3 @@
-/* 
-  All Routes
-  Created: 2024-05-28
-  Last Modified: 2024-06-22
-  Author: Zihan Zhao
-*/
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginEmail from './LoginWithEmail';
@@ -12,6 +6,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import NotFound from './NotFound';
+import Form from './Form'; // Ensure Form is imported
 
 function App() {
   return (
@@ -22,6 +17,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
+        <Route path="/form" element={<Form />} /> {/* Add this route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
