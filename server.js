@@ -269,6 +269,13 @@ app.get("/users/name/:name", asyncHandler(async (req, res) => {
     res.status(200).json(users);
 }));
 
+// Add a new endpoint for form submissions
+app.post('/submit-form', (req, res) => {
+    const formData = req.body;
+    console.log('Form data received:', formData);
+    // Here you can handle the form data (e.g., save it to a database)
+    res.status(200).json({ message: 'Form data received successfully', data: formData });
+  });  
 
 async function start() {
     await connectToDB();

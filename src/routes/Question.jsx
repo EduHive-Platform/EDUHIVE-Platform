@@ -26,14 +26,14 @@ const RadioButton = styled.input`
   margin-right: 8px;
 `;
 
-const Question = ({ question, type, options }) => {
+const Question = ({ question, type, options, name, onChange }) => {
   return (
     <QuestionContainer>
       <Label>{question}</Label>
-      {type === 'text' && <Input type="text" />}
+      {type === 'text' && <Input type="text" name={name} onChange={onChange} />}
       {type === 'radio' && options.map(option => (
         <div key={option}>
-          <RadioButton type="radio" name={question} value={option} />
+          <RadioButton type="radio" name={name} value={option} onChange={onChange} />
           {option}
         </div>
       ))}
