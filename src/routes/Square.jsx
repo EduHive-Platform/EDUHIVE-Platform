@@ -3,6 +3,7 @@ import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Posts from '../components/Posts';
 import './Square.css';
+import SubjectCategory from '../components/SubjectCategory';
 
 const Square = () => {
   const sidebarItems = [
@@ -29,9 +30,18 @@ const Square = () => {
   ];
 
   return (
-    <div className="square-page">
+    <div className="square-container">
       <Sidebar items={sidebarItems} />
-      <Posts />
+      <div className="subject-categories">
+        <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
+        <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
+        <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>
+        <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/humanity"/>
+        <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/humanity"/>
+        <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/humanity" />
+        <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/humanity" />
+        <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/humanity" />
+      </div>
     </div>
   );
 };

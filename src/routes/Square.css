@@ -1,5 +1,22 @@
-/* Square.css */
-.square-page {
+.square-container {
     display: flex;
-    height: 100vh; /* Ensure it takes full height */
   }
+  
+  .sidebar {
+    width: 200px; /* Adjust this width to match your sidebar's design */
+    /* Your existing sidebar styles */
+  }
+  
+  .subject-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: 200px; /* Adjust the margin as needed */
+    flex: 1;
+  }
+  
+  .subject-categories .subject-category {
+    flex: 1 1 calc(25% - 20px); /* Adjust percentage and margin as needed for responsiveness */
+    margin: 10px;
+  }
+  

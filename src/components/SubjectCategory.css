@@ -1,0 +1,38 @@
+.subject-category {
+    text-align: left; /* Align text to the left */
+    margin: 20px;
+    position: relative;
+  }
+  
+  .image-container {
+    display: inline-block; /* Ensure it behaves like an inline element */
+    width: 250px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .subject-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  
+  .image-container:hover .subject-image {
+    /*filter: blur(5px);*/
+    transform: scale(1.10); /* Slightly enlarge the image */
+  }
+  
+  .community-name {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2; /* Ensure text stays above the image */
+  }
+  
