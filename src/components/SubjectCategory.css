@@ -6,8 +6,8 @@
   
   .image-container {
     display: inline-block; /* Ensure it behaves like an inline element */
-    width: 250px;
-    height: 200px;
+    width: 280px;
+    height: 230px;
     overflow: hidden;
     border-radius: 15px;
     transition: transform 0.3s ease, filter 0.3s ease;

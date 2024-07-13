@@ -1,9 +1,10 @@
-// Square.jsx
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Posts from '../components/Posts';
 import './Square.css';
 import SubjectCategory from '../components/SubjectCategory';
+import HeaderMain from '../components/HeaderMain';
+import SearchBox from '../components/SearchBox'; 
 
 const Square = () => {
   const sidebarItems = [
@@ -29,19 +30,51 @@ const Square = () => {
     { label: 'Topics' },
   ];
 
+  const leftLinks = [
+    { label: 'Solutions', href: '/solutions' },
+    { label: 'About', href: '/about' },
+    { label: 'Insights', href: '/insights' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const rightLinks = [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com' },
+  ];
+
+  const handleSearch = (query) => {
+    console.log('Searching for:', query);
+    // Add your search logic here
+  };
+
+  const handleFilter = () => {
+    console.log('Filter button clicked');
+    // Add your filter logic here
+  };
+
   return (
-    <div className="square-container">
-      <Sidebar items={sidebarItems} />
-      <div className="subject-categories">
-        <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
-        <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
-        <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>
-        <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/humanity"/>
-        <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/humanity"/>
-        <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/humanity" />
-        <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/humanity" />
-        <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/humanity" />
-      </div>
+    <div className="square-page">
+        <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
+        <div className="square-container">
+          <Sidebar items={sidebarItems} />
+          <div className="main-content">
+            <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
+            <div className="subject-categories">
+              <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
+              <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
+              <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>
+              <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/humanity"/>
+              <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/humanity"/>
+              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/humanity" />
+              <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/humanity" />
+              <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/humanity" />
+              <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/humanity" />
+              <SubjectCategory communityName="Med" imageSrc="/assets/Med.png" link="/humanity" />
+              <SubjectCategory communityName="History" imageSrc="/assets/History.png" link="/humanity" />
+              <SubjectCategory communityName="Sports" imageSrc="/assets/Sports.png" link="/humanity" />
+            </div>
+          </div>
+        </div>
     </div>
   );
 };

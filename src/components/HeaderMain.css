@@ -6,7 +6,13 @@
     padding: 10px 20px;
     background-color: #f3f3f3; /* Change background color to gray */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed; 
+    top: 0; /* Align it to the top */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Ensure it spans the full width of the viewport */
+    z-index: 1000; /* Make sure it stays on top of other elements */
   }
+  
   
   .left-links, .right-links {
     display: flex;
