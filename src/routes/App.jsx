@@ -13,6 +13,7 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
+import ProfessorPost from './ProfessorPost';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path='/studentPost' element={<StudentPost />} />
+        <Route path='/ProfessorPost' element={<ProfessorPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
