@@ -1,62 +1,58 @@
 /* HeaderMain.css */
-
-.header {
-    background-color: #f8f9fa;
+.header-main {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     padding: 10px 20px;
+    background-color: #f3f3f3; /* Change background color to gray */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed; 
+    top: 0; /* Align it to the top */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Ensure it spans the full width of the viewport */
+    z-index: 1000; /* Make sure it stays on top of other elements */
+  }
+  
+  
+  .left-links, .right-links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
+    gap: 20px; /* Increase space between each link */
   }
   
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  .left-links {
+    justify-self: start;
   }
   
-  .nav-list {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+  .right-links {
+    justify-self: end;
   }
   
-  .nav-item {
-    margin: 0 10px;
-  }
-  
-  .nav-item a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  .nav-item a:hover {
-    color: #116E6A;
-  }
-  
-  .nav-logo {
-    margin: 0;
-    padding: 0 5px;
-    flex-shrink: 0;
-  }
-  
-  .nav-logo a {
-    text-decoration: none;
-    color: #116E6A;
-    font-weight: bold;
+  .logo {
+    text-align: center;
     font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    font-family: "Cormorant Garamond", serif;
   }
   
-  .nav-logo a:hover {
-    color: #0056b3;
+  .logo-edu {
+    color: #073f7ef2; /* Dark blue */
+    letter-spacing: 3.5px; /* Increase space among characters */
   }
   
-  .nav-list-left, .nav-list-right {
-    display: flex;
-    align-items: center;
+  .logo-hive {
+    color: #80c4db; /* Light blue */
+    letter-spacing: 2px; /* Increase space among characters */
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #01060a;
+    font-size: 18px;
+    font-family: "Cormorant Garamond", serif;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
   }
   

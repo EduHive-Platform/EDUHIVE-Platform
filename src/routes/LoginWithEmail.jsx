@@ -7,10 +7,11 @@
 import React, { useState } from 'react'; 
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Logo = styled.img`
-  height: 120px;
-  margin-bottom: 50px;
+  height: 60px;
+  margin-bottom: 10px;
 `;
 
 const Container = styled.div`
@@ -82,11 +83,12 @@ const Input = styled.input`
 
 const Image = styled.img`
   margin-top: 80px;
-  height: 400px; /* Adjust as needed */
+  height: 400px; 
 `;
 
 
 const LoginEmail = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -103,7 +105,7 @@ const LoginEmail = () => {
           /* Redirect or update UI based on the response 
              TODO
           */
-          alert("Login successfully!");
+          navigate('/square');
         } catch (error) {
           console.error('There was an error Login!', error);
         }

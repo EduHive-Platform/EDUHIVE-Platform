@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
   font-family: inherit;
   box-sizing: inherit;
@@ -21,4 +22,83 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Specific Styles */
+.FormContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.QuestionContainer {
+  margin-bottom: 20px;
+}
+
+.Label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.Input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.Input:focus {
+  outline: none;
+  border-color: #4A90E2;
+}
+
+.RadioButton {
+  margin-right: 8px;
+}
+
+.Logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 50px;
+}
+
+.OuterContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.LoginContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.ContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.ImageContainer {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.Image {
+  max-width: 100%;
+  height: auto;
 }
