@@ -42,6 +42,9 @@ const FormContainer = styled.div`
 `;
 
 const Button = styled.button`
+  &:hover {
+    background-color: grey
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,12 +116,12 @@ const LoginEmail = () => {
           <Logo src="/assets/Logo.png" alt="EduHive Logo" />
           <Container>
             <FormContainer>
-              <Title>Login by typing your email and password</Title>
+              <Title>Login</Title>
               <Row>
                 <Input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
               </Row>
               <Row>
-                <Input type="text" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <SmallButton onClick={handleLogin}>Login</SmallButton>
               </Row>
             </FormContainer>

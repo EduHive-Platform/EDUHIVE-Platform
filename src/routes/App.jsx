@@ -5,6 +5,7 @@ import Main from './MainSite';
 import Login from './Login';
 import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
+import StudentPost from './StudentPost';
 import NotFound from './NotFound';
 import Form from './Form'; // Ensure Form is imported
 import Square from './Square'
