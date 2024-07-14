@@ -9,7 +9,7 @@ const FuncMain = () => {
     navigate('/loginWithEmail');
   };
   const handleSignUp = () => {
-    navigate('/login');
+    navigate('/signup');
   };
 
   const Button = styled.button`
@@ -31,10 +31,9 @@ const FuncMain = () => {
       <div className="func-content">
         <h1>Start your Startup, Research, and Graduate School in ...</h1>
         <div className="func-buttons">
-          <button className="func-button" onClick={handleLogin}>Login the EduHive</button>
-          <button className="func-button" onClick={handleSignUp}>Signup the EduHive</button>
           <Button onClick={handleLogin}>Login the EduHive</Button>
           <Button onClick={handleSignUp}>Signup the EduHive</Button>
+          <Button onClick={() => {navigate('./studentPost')}}>Test</Button>
         </div>
       </div>
       <div className="func-image">

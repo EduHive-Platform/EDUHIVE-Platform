@@ -20,7 +20,7 @@ app.use(express.static(__dirname + "/public"));
 
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
-    const { name, dateOfBirth, institution, email, created_at, password } = req.body;
+    const { name, dateOfBirth, institution, email, created_at, password} = req.body;
     const password_hash = await bcrypt.hash(password, 10);
     const newUser = new EduUser({
         username: name,
@@ -28,7 +28,7 @@ app.post("/save-user", asyncHandler(async (req, res) => {
         email,
         dateOfBirth,
         institution,
-        created_at,
+        created_at
     });
 
     await newUser.save();

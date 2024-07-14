@@ -7,7 +7,6 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import Form from './Form'; // Ensure Form is imported
 import Square from './Square'
 
 function App() {
@@ -20,7 +19,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
-        <Route path="/form" element={<Form />} /> {/* Add this route */}
+        <Route path="/studentPost" element={<StudentPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
