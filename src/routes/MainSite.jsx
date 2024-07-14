@@ -12,9 +12,21 @@ import PictureMain from '../components/PictureMain';
 import FooterMain from '../components/FooterMain';
 
 const Main = () => {
+  const leftLinks = [
+    { label: 'Solutions', href: '/solutions' },
+    { label: 'About', href: '/about' },
+    { label: 'Insights', href: '/insights' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const rightLinks = [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com' },
+  ];
+  
   return (
     <div>
-      <HeaderMain />
+      <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
       <main>
         <FuncMain />
         <PictureMain />

@@ -1,9 +1,3 @@
-/* 
-  All Routes
-  Created: 2024-05-28
-  Last Modified: 2024-06-22
-  Author: Zihan Zhao
-*/
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import LoginEmail from './LoginWithEmail';
@@ -13,7 +7,7 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import ProfessorPost from './ProfessorPost';
+import Square from './Square'
 
 function App() {
   return (
@@ -21,11 +15,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/loginWithEmail" element={<LoginEmail />} />
+        <Route path="/square" element={<Square />} />
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
-        <Route path='/studentPost' element={<StudentPost />} />
-        <Route path='/ProfessorPost' element={<ProfessorPost />} />
+        <Route path="/studentPost" element={<StudentPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
