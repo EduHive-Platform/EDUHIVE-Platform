@@ -7,8 +7,9 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import Form from './Form'; // Ensure Form is imported
-import Square from './Square'
+import Form from '../components/Form';
+import Square from './Square';
+import Post from '../components/Post'; // Import the Post component
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
-        <Route path="/form" element={<Form />} /> {/* Add this route */}
+        <Route path="/form" element={<Form />} />
+        <Route path="/posts" element={<Post />} /> {/* Add this route for Posts */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
