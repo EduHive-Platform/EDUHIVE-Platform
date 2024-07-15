@@ -105,7 +105,7 @@ const LoginEmail = () => {
           /* Redirect or update UI based on the response 
              TODO
           */
-          navigate('/square');
+          navigate('/square', {state:{email:email, password:password}});
         } catch (error) {
           console.error('There was an error Login!', error);
         }

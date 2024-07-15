@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
 import ReactSelect from "react-select";
 import HeaderMain from '../components/HeaderMain';
@@ -47,7 +48,7 @@ const Textarea = styled.textarea`
   font-size: 16px;
   resize: none;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: calc(100%);
   height: 200px;
   border: 1px solid #ccc;
@@ -125,16 +126,21 @@ const rightLinks = [
 
 const StudentPost = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [Communities, setCommunities] = useState('')
     const handlePost = () => {
         // To Do: need to connect backend interface for receiving student post
         alert('Receive your post sucessfully');
-        navigate('/Square')
+        navigate('/Square', location)
     }
 
     const handleSave = () => {
         // To Do: need to connect backend interface for saving student post
         alert('Save your post sucessfully');
-        navigate('/Square')
+        navigate('/Square', location)
     }
     const options = [
       {value:0, label:"Humanity" },
@@ -163,6 +169,8 @@ const StudentPost = () => {
                 <MultiSelect isMulti options={options}></MultiSelect>
                 <SubTitle>Project Description</SubTitle>
                 <Textarea type='text' placeholder='description'></Textarea>
+                <SubTitle>Requirements</SubTitle>
+                <Textarea type='text' placeholder='requirements for the participants'></Textarea>
                 <Button onClick={handlePost}>Post</Button>
                 <SaveButton onClick={handleSave}>Save draft</SaveButton>
                 </FormContainer>

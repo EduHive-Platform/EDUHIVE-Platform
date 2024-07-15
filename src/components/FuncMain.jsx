@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const FuncMain = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate('/loginWithEmail');
+    navigate('/login');
   };
   const handleSignUp = () => {
     navigate('/signup');
@@ -33,7 +33,6 @@ const FuncMain = () => {
         <div className="func-buttons">
           <Button onClick={handleLogin}>Login the EduHive</Button>
           <Button onClick={handleSignUp}>Signup the EduHive</Button>
-          <Button onClick={() => {navigate('./studentPost')}}>Test</Button>
         </div>
       </div>
       <div className="func-image">

@@ -1,12 +1,15 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import Posts from '../components/Posts';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Square.css';
 import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
-import SearchBox from '../components/SearchBox'; 
+import SearchBox from '../components/SearchBox';
+import {Button} from '../components/styled_components' 
 
 const Square = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const sidebarItems = [
     { label: 'Community', subLinks: [{ label: 'Computer Science', href: '/ComputerScience' }, { label: 'Electrical Engineering', href: '/subhome2' },
         { label: 'Math', href: '/subhome2' }, { label: 'Physics', href: '/subhome2' }, { label: 'Data Science', href: '/subhome2' }, { label: 'Statistics', href: '/subhome2' }] },
@@ -60,6 +63,7 @@ const Square = () => {
           <div className="main-content">
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
             <div className="subject-categories">
+              <Button onClick={() => {navigate('/studentPost', location)}}>Test</Button>
               <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
               <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
               <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>

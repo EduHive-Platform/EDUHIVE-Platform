@@ -41,7 +41,7 @@ app.post("/save-project", asyncHandler(async (req, res) => {
     if (!email || !project) {
         return res.status(400).json({ message: "Invalid email or project" });
     }
-
+    // Password verification
     const user = await EduUser.findOne({ email });
 
     if (!user) {
