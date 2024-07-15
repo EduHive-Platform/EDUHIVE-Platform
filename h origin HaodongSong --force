@@ -1,0 +1,320 @@
+[33mcommit 9ccec6ede5103d5a0a148cf2e0a0c4e1d845e33d[m[33m ([m[1;36mHEAD -> [m[1;32mHaodongSong[m[33m, [m[1;31morigin/HaodongSong[m[33m)[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Sun Jul 14 23:16:18 2024 -0700
+
+    finish post component
+
+[33mcommit 98bd5678dc2848404660506b8af953486dacdb6d[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Sun Jul 14 18:09:14 2024 -0700
+
+    Post component front end finished (not verified)
+
+[33mcommit 1a4d07e62c4cce322bc74be20f112ec9e44a65ee[m[33m ([m[1;31morigin/yifancui[m[33m, [m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Sun Jul 14 17:52:44 2024 -0700
+
+    Create the subheader in the Subheader.jsx file.
+
+[33mcommit ef4addf28b762ccc892fb6fa8d1a652452fa5087[m
+Merge: bf4a026 80e222e
+Author: cheng-wang2002 <90290249+cheng-wang2002@users.noreply.github.com>
+Date:   Sun Jul 14 17:50:56 2024 -0500
+
+    Merge pull request #2 from EduHive-Platform/HaodongSong
+    
+    Haodong song
+
+[33mcommit bf4a026717971dabf9c20cebfe1edae34f69ab84[m
+Author: cheng-wang2002 <90290249+cheng-wang2002@users.noreply.github.com>
+Date:   Sun Jul 14 00:14:54 2024 -0500
+
+    Update FuncMain.jsx
+    
+    Acciendentally change develop branch.
+
+[33mcommit 47b607d46c1b657010990f46728acb99f1d01806[m
+Merge: 84cd080 b2dbdda
+Author: cheng-wang2002 <90290249+cheng-wang2002@users.noreply.github.com>
+Date:   Sun Jul 14 00:05:34 2024 -0500
+
+    Merge branch 'chengwang' into develop
+
+[33mcommit 84cd08024a80babd4624af8eec460487b7c1ebb8[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Sat Jul 13 18:01:08 2024 -0700
+
+    Create the recommendbox component
+
+[33mcommit 9942414bc7243fd2d957bc14eac36543d2ea980e[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sat Jul 13 20:47:45 2024 +0800
+
+    square
+
+[33mcommit aa3bb69fbbdcd6c5b5ebc7ee33604e25cab767d7[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sat Jul 13 16:55:56 2024 +0800
+
+    add SubjectCategory to sqaure
+
+[33mcommit 80e222e9ecf0378de00d0f0957f87286838e352a[m
+Merge: bd6db51 761bd89
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Thu Jul 11 22:03:31 2024 -0700
+
+    Merge branch 'HaodongSong' of https://github.com/EduHive-Platform/EDUHIVE-Platform into HaodongSong
+
+[33mcommit bd6db51d755f6f284f90f27f3866d8ab4beae5b8[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Thu Jul 11 22:00:08 2024 -0700
+
+    Your commit message here
+
+[33mcommit e48cb7922f07fc2167a6334c3e20f3be252e169d[m
+Merge: f5398d4 761bd89
+Author: EduHive-Platform <calzihanzhao@outlook.com>
+Date:   Thu Jul 11 23:27:19 2024 +0800
+
+    Merge pull request #1 from EduHive-Platform/HaodongSong
+    
+    Add form component and integrate Question component
+
+[33mcommit 761bd89186d79616e7d1d246ddd51cdaa019920c[m
+Merge: 2a0b42d f5398d4
+Author: EduHive-Platform <calzihanzhao@outlook.com>
+Date:   Thu Jul 11 23:21:06 2024 +0800
+
+    Merge branch 'develop' into HaodongSong
+
+[33mcommit f5398d47b5f6f6ef5442a7eb623e8b9b1ffd5e57[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Thu Jul 11 19:40:04 2024 +0800
+
+    add hover to left bar
+
+[33mcommit 257f00c7c9313a3ac7e91070ac7c7c7ec74042d8[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Thu Jul 11 18:43:09 2024 +0800
+
+    left bar and square
+
+[33mcommit 316229a1018d007fc66f5ec77ea8875e8cee6163[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Thu Jul 11 17:20:34 2024 +0800
+
+    side bar added
+
+[33mcommit 2a0b42dbc43669d1529b963cb967d88b55fa092f[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Wed Jul 10 22:39:14 2024 -0700
+
+    Add form component and integrate Question component
+
+[33mcommit 0972413bd8a9b6055e290c34cde4fcaa9fac31b8[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Wed Jul 10 18:56:25 2024 +0800
+
+    mainsite font changed
+
+[33mcommit a72483c2161f93aa2ae729a0a791d5df15901621[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Wed Jul 10 15:44:14 2024 +0800
+
+    changed header font spacing
+
+[33mcommit 617e6ef2eb4b3434609914d77bf80f11767f678e[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Wed Jul 10 15:32:45 2024 +0800
+
+    Finished HeaderMain component
+
+[33mcommit b972a6b5c045d1614cb40901c5f3fa4e4294006f[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Tue Jul 9 16:49:30 2024 +0800
+
+    change route of Signup the EduHive button
+
+[33mcommit b2dbddaeccc5047594dac13056675a3d7513b35f[m
+Author: cheng-wang2002 <chengw4@illinois.edu>
+Date:   Tue Jul 9 02:16:03 2024 -0500
+
+    new branch
+
+[33mcommit 99128a540e63ca2e1a98e63048e38e72435dc5ac[m
+Author: cheng-wang2002 <chengw4@illinois.edu>
+Date:   Mon Jul 8 22:51:48 2024 -0500
+
+    new branch
+
+[33mcommit 97652f44c5754bc08a64b8f642c2e73ce4f0a712[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jul 5 23:00:17 2024 +0800
+
+    dashboard need to be designed
+
+[33mcommit 262dd54dae238d0ab31b01d57f3108bb3779076d[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jul 5 22:52:10 2024 +0800
+
+    Login with email finished
+
+[33mcommit 5216f93dc7d03dbf6a7d86828716d4c4c2b9f6b6[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jul 5 22:39:11 2024 +0800
+
+    login with email page created
+
+[33mcommit 76af3b4a4315f0d0ce3671ae74ff3793b28f75f2[m
+Merge: 2eeb53e ee99957
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jul 5 22:14:33 2024 +0800
+
+    login name changed
+
+[33mcommit 2eeb53e2da434e7ee46c9f1afaee466d5424d5ad[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jul 5 22:10:21 2024 +0800
+
+    login name changed
+
+[33mcommit ee9995743f7c24bc4f44d422fd596c6a14746a77[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Tue Jul 2 22:20:12 2024 -0700
+
+    Add CRUD operations for likes schema, but not sure whether it is a good way
+
+[33mcommit 46ca62be31c71c43c33602ffdb433acf12277e1b[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Tue Jul 2 21:12:04 2024 -0700
+
+    Added CRUD operations for comments
+
+[33mcommit 784edc61a423d3f2184fc0fe52900cef96b92dbd[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Tue Jul 2 12:29:02 2024 -0700
+
+    add in server.js: Implement the search of projects, communities and users
+
+[33mcommit e1c5c307075eac302e6d40d14b4286ab90d41cef[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Mon Jul 1 20:27:31 2024 -0700
+
+    Added CRUD operations for project schema and tested with Postman
+
+[33mcommit 11826b27a28e4bacf943d7d08f7e0f3071b58d96[m
+Author: qscwezxad <yingdaq@uci.edu>
+Date:   Mon Jul 1 14:04:12 2024 -0500
+
+    project saved test
+
+[33mcommit e5ac2c5f7b58ce2523b8ac0ac75cbd0dc009fda6[m
+Author: ZHENYUANDAXIAN <hs38@illinois.edu>
+Date:   Sun Jun 30 19:45:05 2024 -0700
+
+    Add login backend interface R9
+
+[33mcommit 10a318d802779fad2c8b213d73e340190b384f16[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sat Jun 29 18:37:34 2024 +0800
+
+    routes changed, Main site is on /
+
+[33mcommit ead634a591ff9ee8c9b7db332f07a479eebe89ae[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jun 28 18:54:33 2024 +0800
+
+    color changed; add color.txt
+
+[33mcommit c4ea34242ab101c84d2ff3b9618a4f9ac645b80e[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jun 28 16:57:15 2024 +0800
+
+    /save-user
+
+[33mcommit 49845da4952b7c6890f446da739cf0356564e0eb[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jun 28 11:59:45 2024 +0800
+
+    add: Main Page, need improving style and changing route
+
+[33mcommit 3e70861a2c341eedc8588211b14747914fd0a91b[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Fri Jun 28 11:34:56 2024 +0800
+
+    add: HeaderMain component
+
+[33mcommit 336cf7bff3a7b9c8c4661c04d0bd83701988df3e[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Tue Jun 25 20:35:52 2024 -0700
+
+    .env: 修改了邮箱
+
+[33mcommit 4ac9ada7688c769f6ed39d849251183773f9587c[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Mon Jun 24 15:28:06 2024 -0700
+
+    修改server.js, 创建.env
+    
+    .env: 创建配置文件以储存环境变量
+    server.js: 现在邮箱和密码从.env文件读取
+
+[33mcommit 77e242037e350a3fff9b31396d23e4600d3d707e[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Mon Jun 24 12:55:01 2024 -0700
+
+    server.js: 更新了email的text
+
+[33mcommit b544426e2a8a880f7c7c0c96b5326b82b1bf4af0[m
+Author: CATGPT0 <133710245+CATGPT0@users.noreply.github.com>
+Date:   Mon Jun 24 12:43:13 2024 -0700
+
+    server.js: 更新验证码发送
+
+[33mcommit 19932be3dee699ea4abc9da0150cf37bff3edc4f[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Mon Jun 24 19:39:41 2024 +0800
+
+    add: MainPage
+
+[33mcommit 962d7c67c5033b3725e5c8f4ffaf9c77d9adee85[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Mon Jun 24 11:38:42 2024 +0800
+
+    add: frontend email verification
+
+[33mcommit d2ca60dd7d4f4bc39c1667d000d17ce3e23717ef[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sun Jun 23 14:19:04 2024 +0800
+
+    add: Password hash
+
+[33mcommit 7dbda2c077b593aae6b84bda9441c385f441a194[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sun Jun 23 02:36:59 2024 +0800
+
+    add: save usesrs
+
+[33mcommit d52cedc402cc99d28704930a81851a7f38fd4bff[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sun Jun 23 01:01:54 2024 +0800
+
+    delete node_modules
+
+[33mcommit 208f697abb6bc2d09473b879612e20fa5c440681[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sun Jun 23 00:56:49 2024 +0800
+
+    Add node_modules to .gitignore
+
+[33mcommit 747299ed21b40cc06a94e13cea5d6d31c2ae91d7[m
+Author: Zihan Zhao <zihanzhao1117@berkeley.edu>
+Date:   Sun Jun 23 00:14:34 2024 +0800
+
+    Update Routes
+
+[33mcommit b0533fb5916ea73b95c052a0d2a8a8e50a1e5582[m
+Author: EduHive-Platform <calzihanzhao@outlook.com>
+Date:   Sun Jun 23 00:07:20 2024 +0800
+
+    Initial commit
