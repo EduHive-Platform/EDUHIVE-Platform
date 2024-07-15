@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Question from './Question';
+import Question from '../routes/Question';
 import styled from 'styled-components';
 
 const FormContainer = styled.div`

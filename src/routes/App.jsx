@@ -7,9 +7,9 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import Form from './Form';
+import Form from '../components/Form';
 import Square from './Square';
-import Post from './Post'; // Import the Post component
+import Post from '../components/Post'; // Import the Post component
 
 function App() {
   return (
