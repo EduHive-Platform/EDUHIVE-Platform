@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import Posts from '../components/Posts';
+import Posts from './Post';
 import './Square.css';
 import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
