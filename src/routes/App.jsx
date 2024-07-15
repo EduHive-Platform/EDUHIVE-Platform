@@ -9,6 +9,9 @@ import StudentPost from './StudentPost';
 import ProfessorPost from './ProfessorPost';
 import NotFound from './NotFound';
 import Square from './Square'
+import ComponentTest from './ComponentTest'
+
+
 
 function App() {
   return (
@@ -22,6 +25,7 @@ function App() {
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="/studentPost" element={<StudentPost />} />
         <Route path="/professorPost" element={<ProfessorPost />}/>
+        <Route path="/ComponentTest" element={<ComponentTest />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
