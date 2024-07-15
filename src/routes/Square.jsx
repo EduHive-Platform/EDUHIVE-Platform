@@ -63,7 +63,6 @@ const Square = () => {
           <div className="main-content">
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
             <div className="subject-categories">
-              <Button onClick={() => {navigate('/studentPost', location)}}>Test</Button>
               <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
               <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
               <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>
