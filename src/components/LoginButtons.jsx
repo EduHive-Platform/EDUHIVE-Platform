@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaGoogle, FaEnvelope } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
-const OuterContainer = styled.div`
-  position: relative;
-  min-height: 100vh;
-  padding: 20px;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -42,19 +37,20 @@ const SignUpLink = styled(Link)`
   text-decoration: underline;
 `;
 
-const LoginButtons = () => (
+const LoginButtons = () => {
+  const navigate = useNavigate();
+  return (
   <ButtonContainer>
     <Button>
       <FaGoogle style={{ marginRight: '10px' }} />
       Continue with Google
     </Button>
-    <Button>
+    <Button onClick={() =>{navigate('/loginWithEmail')}}>
       <FaEnvelope style={{ marginRight: '10px' }} />
       Sign in with email
     </Button>
     <SignUpLink to="/signup">New to EduHive? Join Here</SignUpLink>
   </ButtonContainer>
-);
+);}
 
 export default LoginButtons;
-
