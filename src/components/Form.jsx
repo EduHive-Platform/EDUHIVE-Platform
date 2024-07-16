@@ -23,7 +23,7 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Form = () => {
+const FormSheet = () => {
   const [formData, setFormData] = useState({
     community: '',
     projectTitle: '',
@@ -91,4 +91,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormSheet;

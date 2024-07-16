@@ -277,11 +277,11 @@ app.post('/submit-form', (req, res) => {
     res.status(200).json({ message: 'Form data received successfully', data: formData });
   });  
 
-// Add endpoint to fetch posts
-app.get("/api/posts", asyncHandler(async (req, res) => {
-    const posts = await Post.find(); // Assuming 'Post' is your mongoose model
-    res.status(200).json(posts);
-  }));
+// Add endpoint to fetch projects
+app.get("/api/projects", asyncHandler(async (req, res) => {
+    const projects = await Project.find(); // Assuming 'Project' is your mongoose model
+    res.status(200).json(projects);
+}));
   
 async function start() {
     await connectToDB();
