@@ -8,6 +8,7 @@ const PostContainer = styled.div`
   padding: 16px;
   margin: 16px 0;
   background-color: #fff;
+  width: 200%
 `;
 
 const CommunityName = styled.div`
@@ -155,4 +156,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Post;
