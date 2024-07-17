@@ -7,7 +7,8 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import Square from './Square'
+import Square from './Square';
+
 
 function App() {
   return (
@@ -27,4 +28,3 @@ function App() {
 }
 
 export default App;
-
