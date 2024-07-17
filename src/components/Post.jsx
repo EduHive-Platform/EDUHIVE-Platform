@@ -155,4 +155,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Post;

@@ -8,11 +8,13 @@ import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
 import Square from './Square'
+import SubSquare from './SubSquare';
 
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/subSquare" element={<SubSquare />} />
         <Route path="/login" element={<Login />} />
         <Route path="/loginWithEmail" element={<LoginEmail />} />
         <Route path="/square" element={<Square />} />
