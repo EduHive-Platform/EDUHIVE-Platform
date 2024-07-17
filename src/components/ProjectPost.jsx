@@ -65,7 +65,7 @@ const Comment = styled.div`
   margin-bottom: 8px;
 `;
 
-const Post = ({ community, title, content, likes, comments }) => {
+const ProjectPost = ({ communityName, title, content, likes, comments }) => {
   const [showComments, setShowComments] = useState(false);
 
   const toggleComments = () => {
@@ -74,7 +74,7 @@ const Post = ({ community, title, content, likes, comments }) => {
 
   return (
     <PostContainer>
-      <CommunityName>{community}</CommunityName>
+      <CommunityName>{communityName}</CommunityName>
       <PostTitle>{title}</PostTitle>
       <PostContent>{content}</PostContent>
       <PostFooter>
@@ -97,62 +97,20 @@ const Post = ({ community, title, content, likes, comments }) => {
   );
 };
 
-Post.propTypes = {
-  community: PropTypes.string,
+ProjectPost.propTypes = {
+  communityName: PropTypes.string,
   title: PropTypes.string,
   content: PropTypes.string,
   likes: PropTypes.number,
   comments: PropTypes.arrayOf(PropTypes.string),
 };
 
-Post.defaultProps = {
-  community: 'Unknown Community',
-  title: 'Untitled Post',
+ProjectPost.defaultProps = {
+  communityName: 'Unknown Community',
+  title: 'Untitled Project',
   content: 'No content available.',
   likes: 0,
   comments: [],
 };
 
-const App = () => {
-  const postsData = [
-    {
-      community: 'Community 1',
-      title: 'First Post',
-      content: 'This is the content of the first post.',
-      likes: 10,
-      comments: ['Great post!', 'Thanks for sharing.'],
-    },
-    {
-      community: 'Community 2',
-      title: 'Second Post',
-      content: 'This is the content of the second post.',
-      likes: 20,
-      comments: ['Very informative.', 'I learned a lot.'],
-    },
-    {
-      community: 'Community 3',
-      title: 'Third Post',
-      content: 'This is the content of the third post.',
-      likes: 15,
-      comments: ['Interesting perspective.', 'Good read!'],
-    },
-  ];
-
-  return (
-    <div>
-      <h1>Posts</h1>
-      {postsData.map((post, index) => (
-        <Post
-          key={index}
-          community={post.community}
-          title={post.title}
-          content={post.content}
-          likes={post.likes}
-          comments={post.comments}
-        />
-      ))}
-    </div>
-  );
-};
-
-export default Post;
+export default ProjectPost;

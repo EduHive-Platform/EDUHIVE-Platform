@@ -9,7 +9,6 @@ import StudentPost from './StudentPost';
 import NotFound from './NotFound';
 import Square from './Square'
 import SubSquare from './SubSquare';
-
 function App() {
   return (
     <div className="App">
@@ -29,4 +28,3 @@ function App() {
 }
 
 export default App;
-
