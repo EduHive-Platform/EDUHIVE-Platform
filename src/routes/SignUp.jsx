@@ -1,9 +1,3 @@
-/* 
-  Route: /SignUp
-  Created: 2024-05-28
-  Last Modified: 2024-06-22
-  Author: Zihan Zhao
-*/
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +36,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   &:hover {
-    background-color: grey
+    background-color: grey;
   }
   width: 100%;
   padding: 10px;
@@ -59,29 +53,46 @@ const Logo = styled.img`
   margin-bottom: 20px;
 `;
 
+const BackButton = styled(Button)`
+  background-color: grey;
+  margin-top: 20px;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin-bottom: 20px;
+  font-size: 14px;
+`;
 
 const SignUp = () => {
-    const navigate = useNavigate(); // pass name, dateOfBirth, institution with the state containing the form data
+    const navigate = useNavigate(); 
     const [name, setName] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [institution, setInstitution] = useState('');
-  
+    const [error, setError] = useState('');
+
     const handleContinue = () => {
-      navigate('/email-verification', { state: { name, dateOfBirth, institution } });
+        if (!name || !dateOfBirth || !institution) {
+            setError('Please fill out all fields.');
+            return;
+        }
+        navigate('/email-verification', { state: { name, dateOfBirth, institution } });
     };
-  
+
+
     return (
-      <Container>
-        <FormContainer>
-          <Logo src="/assets/Logo.png" alt="EduHive Logo" /> {/* Ensure the correct path to your image */}
-          <Title>Start your journey by inputting basic information</Title>
-          <Input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <Input type="date" placeholder="Date of Birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
-          <Input type="text" placeholder="Institution" value={institution} onChange={(e) => setInstitution(e.target.value)} />
-          <Button onClick={handleContinue}>Continue</Button>
-        </FormContainer>
-      </Container>
+        <Container>
+            <FormContainer>
+                <Logo src="/assets/Logo.png" alt="EduHive Logo" />
+                <Title>Start your journey by inputting basic information</Title>
+                {error && <ErrorMessage>{error}</ErrorMessage>}
+                <Input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                <Input type="date" placeholder="Date of Birth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+                <Input type="text" placeholder="Institution" value={institution} onChange={(e) => setInstitution(e.target.value)} />
+                <Button onClick={handleContinue}>Continue</Button>
+            </FormContainer>
+        </Container>
     );
-  };
-  
-  export default SignUp;
+};
+
+export default SignUp;

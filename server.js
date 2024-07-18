@@ -20,20 +20,36 @@ app.use(express.static(__dirname + "/public"));
 
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
-    const { name, dateOfBirth, institution, email, created_at, password } = req.body;
-    const password_hash = await bcrypt.hash(password, 10);
-    const newUser = new EduUser({
-        username: name,
-        password_hash,
-        email,
-        dateOfBirth,
-        institution,
-        created_at,
-    });
+    try {
+        const { name, dateOfBirth, institution, email, created_at, password } = req.body;
+        const password_hash = await bcrypt.hash(password, 10);
 
-    await newUser.save();
-    res.status(200).json({ message: "User saved successfully", data: newUser });
+        const newUser = new EduUser({
+            username: name,
+            password_hash,
+            email,
+            dateOfBirth,
+            institution,
+            created_at,
+        });
+
+        await newUser.save();
+        res.status(200).json({ message: "User saved successfully", data: newUser });
+    } catch (error) {
+        console.error('Error saving user:', error);
+        if (error.code === 11000) { // MongoDB duplicate key error code
+            const duplicateField = Object.keys(error.keyValue)[0];
+            res.status(400).json({ error: `Duplicate key error: ${duplicateField} already exists.` });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }));
+// Error handling middleware for async errors
+app.use((err, req, res, next) => {
+    res.status(500).json({ error: err.message });
+});
+
 
 app.post("/save-project", asyncHandler(async (req, res) => {
     const { email, project } = req.body;
