@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import Post from '../components/Post';
+import ProjectPost from '../components/ProjectPost';
 import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
 import SearchBox from '../components/SearchBox'; 
@@ -85,7 +85,7 @@ const SubSquare = () => {
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
             <div className='posts'>
                 {postsData.map((post, index) => (
-                    <Post
+                    <ProjectPost
                     key={index}
                     community={post.community}
                     title={post.title}
