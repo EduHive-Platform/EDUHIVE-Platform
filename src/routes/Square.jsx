@@ -58,14 +58,16 @@ const Square = () => {
         <div className="square-container">
           <Sidebar items={sidebarItems} />
           <div className="main-content">
+            <div className='search'>
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
+            </div>
             <div className="subject-categories">
               <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/community/humanity" />
               <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/community/Engineering"/>
               <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/community/Law"/>
               <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/community/Math"/>
               <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/community/Business"/>
-              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/SocialScience" />
+              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/community/SocialScience" />
               <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/community/NaturalScience" />
               <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/community/Education" />
               <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/community/Art" />

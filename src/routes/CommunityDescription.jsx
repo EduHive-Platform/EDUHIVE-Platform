@@ -17,7 +17,7 @@ const CommunityDescription = () => {
     navigate(-1);  // Go back to the previous page
   };
 
-  const handleLogin = () => {
+  const handleSubSquare= () => {
     navigate('/subSquare');
   };
 
@@ -28,10 +28,12 @@ const CommunityDescription = () => {
       </div>
       <div className="text-container">
         <button className="close-button" onClick={handleBack}>×</button>
-        <h1>{community.name}</h1>
-        <p>{community.description}</p>
+        <div className='desc'>
+            <h1>{community.name}</h1>
+            <p>{community.description}</p>
+        </div>
         <div className="func-buttons">
-          <Button onClick={handleLogin}>To the SubSquare</Button>
+          <Button onClick={handleSubSquare}>To the SubSquare</Button>
         </div>
         
       </div>

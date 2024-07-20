@@ -26,7 +26,7 @@
   }
   
   .func-buttons {
-    margin-top: 550px;
+    margin-top: 400px;
     display: flex;
     flex-direction: column;
   }
@@ -41,7 +41,7 @@
     cursor: pointer;
   }
   
-  h1, p {
-    margin: 0.5rem 0; /* Reduced margin for a compact look */
+  .desc {
+    font-family: "Cormorant Garamond", serif;
   }
   
