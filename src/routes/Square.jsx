@@ -60,12 +60,12 @@ const Square = () => {
           <div className="main-content">
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
             <div className="subject-categories">
-              <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/humanity" />
-              <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/humanity"/>
-              <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/humanity"/>
-              <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/humanity"/>
-              <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/humanity"/>
-              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/humanity" />
+              <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/community/humanity" />
+              <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/community/Engineering"/>
+              <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/community/Law"/>
+              <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/community/Math"/>
+              <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/community/Business"/>
+              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/SocialScience" />
               <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/humanity" />
               <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/humanity" />
               <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/humanity" />
