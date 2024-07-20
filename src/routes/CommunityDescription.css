@@ -25,6 +25,11 @@
     width: 40%;
   }
   
+  .func-buttons {
+    margin-top: 550px;
+    display: flex;
+    flex-direction: column;
+  }
   
   .close-button {
     position: absolute;
