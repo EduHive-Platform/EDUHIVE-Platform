@@ -32,7 +32,7 @@ const CommunityDescription = () => {
             <h1>{community.name}</h1>
             <p>{community.description}</p>
         </div>
-        <div className="func-buttons">
+        <div className="func-buttons2">
           <Button onClick={handleSubSquare}>To the SubSquare</Button>
         </div>
         
