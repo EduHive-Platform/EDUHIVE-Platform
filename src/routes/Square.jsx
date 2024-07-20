@@ -66,12 +66,12 @@ const Square = () => {
               <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/community/Math"/>
               <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/community/Business"/>
               <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/SocialScience" />
-              <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/humanity" />
-              <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/humanity" />
-              <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/humanity" />
-              <SubjectCategory communityName="Med" imageSrc="/assets/Med.png" link="/humanity" />
-              <SubjectCategory communityName="History" imageSrc="/assets/History.png" link="/humanity" />
-              <SubjectCategory communityName="Sports" imageSrc="/assets/Sports.png" link="/humanity" />
+              <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/community/NaturalScience" />
+              <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/community/Education" />
+              <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/community/Art" />
+              <SubjectCategory communityName="Med" imageSrc="/assets/Med.png" link="/community/Med" />
+              <SubjectCategory communityName="History" imageSrc="/assets/History.png" link="/community/History" />
+              <SubjectCategory communityName="Sports" imageSrc="/assets/Sports.png" link="/community/Sports" />
             </div>
           </div>
         </div>

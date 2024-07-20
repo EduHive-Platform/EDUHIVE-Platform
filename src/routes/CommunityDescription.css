@@ -4,13 +4,13 @@
     align-items: stretch;  /* Ensure the children fill the vertical space */
   }
   
-  .image-container {
+  .image-container2 {
     width: 50%; /* Larger size for the image */
     height: 100%;
     overflow: hidden;
   }
   
-  .image-container img {
+  .image-container2 img {
     height: 90%;
     width: auto;
     object-fit: cover; /* Ensure the image covers the full container without distortion */

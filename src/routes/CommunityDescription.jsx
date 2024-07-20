@@ -18,7 +18,7 @@ const CommunityDescription = () => {
 
   return (
     <div className="community-page">
-      <div className="image-container">
+      <div className="image-container2">
         <img src={community.imageSrc} alt={community.name} />
       </div>
       <div className="text-container">
