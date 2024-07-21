@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/community/:communityName" element={<CommunityDescription />} />
         <Route path="/subSquare" element={<SubSquare />} />
+        <Route path="/subSquare/:communityName" element={<SubSquare />} />
         <Route path="/login" element={<Login />} />
         <Route path="/loginWithEmail" element={<LoginEmail />} />
         <Route path="/square" element={<Square />} />

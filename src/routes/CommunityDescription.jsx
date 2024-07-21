@@ -17,9 +17,10 @@ const CommunityDescription = () => {
     navigate(-1);  // Go back to the previous page
   };
 
-  const handleSubSquare= () => {
-    navigate('/subSquare');
+  const handleSubSquare = () => {
+    navigate('/subSquare', { state: { communityName: community.name } });
   };
+  
 
   return (
     <div className="community-page">

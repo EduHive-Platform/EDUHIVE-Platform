@@ -5,8 +5,13 @@ import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
 import SearchBox from '../components/SearchBox'; 
 import './SubSquare.css'
+import { useLocation } from 'react-router-dom';
+
 
 const SubSquare = () => {
+  const location = useLocation();
+  const communityName = location.state ? location.state.communityName : 'Default Community';
+
   const sidebarItems = [
     { label: 'Community', subLinks: [{ label: 'Computer Science', href: '/ComputerScience' }, { label: 'Electrical Engineering', href: '/subhome2' },
         { label: 'Math', href: '/subhome2' }, { label: 'Physics', href: '/subhome2' }, { label: 'Data Science', href: '/subhome2' }, { label: 'Statistics', href: '/subhome2' }] },
