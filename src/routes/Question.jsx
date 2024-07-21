@@ -40,5 +40,4 @@ const Question = ({ question, type, options }) => {
     </QuestionContainer>
   );
 };
-
 export default Question;
