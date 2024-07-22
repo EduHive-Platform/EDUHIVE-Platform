@@ -104,7 +104,7 @@ const longResearchSchema = new mongoose.Schema({
 const commentSchema = new mongoose.Schema({
   //  comment_id: { type: Number, required: false, unique: true },
     project_id: String,
-    user_id: { type: Number, required: true },
+    email: String,
     content: { type: String, required: true },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },

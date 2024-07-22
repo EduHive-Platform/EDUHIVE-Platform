@@ -190,19 +190,19 @@ app.get("/comments/:id", asyncHandler(async (req, res) => {
 
 // Create a new comment
 app.post("/comments", asyncHandler(async (req, res) => {
-    const { project_id, user_id, content } = req.body;
+    const { project_id, email, content } = req.body;
     if (!project_id) {
         return res.status(400).json({ message: "Project ID is required" });
     }
-    const newComment = new Comment({ project_id, user_id, content });
+    const newComment = new Comment({ project_id, email, content });
     await newComment.save();
     res.status(201).json(newComment);
 }));
 
 // Update a comment
 app.put("/comments/:id", asyncHandler(async (req, res) => {
-    const { project_id, user_id, content } = req.body;
-    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, { project_id, user_id, content }, { new: true });
+    const { project_id, email, content } = req.body;
+    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, { project_id, email, content }, { new: true });
     if (!updatedComment) {
         return res.status(404).json({ message: "Comment not found" });
     }
@@ -320,23 +320,62 @@ app.get("/api/projects", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
+// save communities 
+app.post('/communities', async(req, res) => {
+    const { community_name, community_id, description } = req.body
+    if (!community_name || !community_id || !description) {
+        return res.status(400).json({ message: "community_id and communityName and community description is required" });
+    }
+    const newCommunity = new Community({ community_name, community_id, description });
+    await newCommunity.save();
+    res.status(201).json(newCommunity);
+})
+
 // Route to get projects, comments, likes by community name 
 app.get('/projects/community/:communityName', async (req, res) => {
     const { communityName } = req.params;
     
     try {
-      const community = await Community.findOne({ community_name: communityName });
-      if (!community) {
-        return res.status(404).json({ message: 'Community not found' });
-      }
-  
-      const projects = await Project.find({ community_id: Number(community.community_id) });
-      res.json(projects);
+        const community = await Community.findOne({ community_name: communityName });
+        if (!community) {
+            return res.status(404).json({ message: 'Community not found' });
+        }
+        
+        const projects = await Project.find({ community_id: Number(community.community_id) }).lean();
+        const projectIds = projects.map(project => project.project_id);
+        console.log(projectIds)
+        
+        const comments = await Comment.aggregate([
+            { $match: { project_id: { $in: projectIds } } },
+            { $group: { _id: "$project_id", comments: { $push: "$$ROOT" } } }
+        ]);
+        console.log(comments)
+        
+        const commentsMap = new Map(comments.map(comment => [comment._id.toString(), comment.comments]));
+        console.log(commentsMap)
+
+        const likesCount = await Like.aggregate([
+            { $match: { project_id: { $in: projectIds } } },
+            { $group: { _id: "$project_id", count: { $sum: 1 } } }
+        ]);
+        console.log(likesCount)
+
+        const likesMap = new Map(likesCount.map(item => [item._id.toString(), item.count]));
+        console.log(likesMap)
+ 
+        const projectsWithDetails = projects.map(project => ({
+            ...project,
+            comments: commentsMap.get(project.project_id.toString()) || [],
+            num_likes: likesMap.get(project.project_id.toString()) || 0
+        }));
+        
+        res.json(projectsWithDetails);
     } catch (error) {
-      console.error('Database query error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+        console.error('Database query error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
-  });
+});
+
 
 app.post('/save-startup', async (req, res) => {
     const { email, project } = req.body;
@@ -373,6 +412,7 @@ app.post('/save-startup', async (req, res) => {
         const savedStartUp = await newStartUp.save();
         const newProject = new Project({
             project_id: savedStartUp._id.toString(),
+            community_id: savedStartUp.community_id,
             email: savedStartUp.email
         })
         const savedProject = await newProject.save();
