@@ -298,6 +298,24 @@ app.get("/api/projects", asyncHandler(async (req, res) => {
     const projects = await Project.find(); // Assuming 'Project' is your mongoose model
     res.status(200).json(projects);
 }));
+
+// Route to get projects by community name
+app.get('/projects/community/:communityName', async (req, res) => {
+    const { communityName } = req.params;
+    
+    try {
+      const community = await Community.findOne({ community_name: communityName });
+      if (!community) {
+        return res.status(404).json({ message: 'Community not found' });
+      }
+  
+      const projects = await Project.find({ community_id: Number(community.community_id) });
+      res.json(projects);
+    } catch (error) {
+      console.error('Database query error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
   
 async function start() {
     await connectToDB();

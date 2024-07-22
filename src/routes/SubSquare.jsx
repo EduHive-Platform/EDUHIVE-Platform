@@ -1,12 +1,17 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import Posts from '../components/ProjectPost';
-import './Square.css';
+import ProjectPost from '../components/ProjectPost';
 import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
 import SearchBox from '../components/SearchBox'; 
+import './SubSquare.css'
+import { useLocation } from 'react-router-dom';
 
-const Square = () => {
+
+const SubSquare = () => {
+  const location = useLocation();
+  const communityName = location.state ? location.state.communityName : 'Default Community';
+
   const sidebarItems = [
     { label: 'Community', subLinks: [{ label: 'Computer Science', href: '/ComputerScience' }, { label: 'Electrical Engineering', href: '/subhome2' },
         { label: 'Math', href: '/subhome2' }, { label: 'Physics', href: '/subhome2' }, { label: 'Data Science', href: '/subhome2' }, { label: 'Statistics', href: '/subhome2' }] },
@@ -52,28 +57,48 @@ const Square = () => {
     // Add your filter logic here
   };
 
+  const postsData = [
+    {
+      community: 'Community 1',
+      title: 'First Post',
+      content: 'This is the content of the first post.',
+      likes: 10,
+      comments: ['Great post!', 'Thanks for sharing.'],
+    },
+    {
+      community: 'Community 2',
+      title: 'Second Post',
+      content: 'This is the content of the second post.',
+      likes: 20,
+      comments: ['Very informative.', 'I learned a lot.'],
+    },
+    {
+      community: 'Community 3',
+      title: 'Third Post',
+      content: 'This is the content of the third post.',
+      likes: 15,
+      comments: ['Interesting perspective.', 'Good read!'],
+    },
+  ];
+
   return (
     <div className="square-page">
         <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
         <div className="square-container">
           <Sidebar items={sidebarItems} />
           <div className="main-content">
-            <div className='search'>
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
-            </div>
-            <div className="subject-categories">
-              <SubjectCategory communityName="Humanity" imageSrc="/assets/Humanity.png" link="/community/humanity" />
-              <SubjectCategory communityName="Engineering" imageSrc="/assets/Engineering.png" link="/community/Engineering"/>
-              <SubjectCategory communityName="Law" imageSrc="/assets/Law.png" link="/community/Law"/>
-              <SubjectCategory communityName="Math" imageSrc="/assets/Math.png" link="/community/Math"/>
-              <SubjectCategory communityName="Business" imageSrc="/assets/Business.png" link="/community/Business"/>
-              <SubjectCategory communityName="Social Science" imageSrc="/assets/SocialScience.png" link="/community/SocialScience" />
-              <SubjectCategory communityName="Natural Science" imageSrc="/assets/NaturalScience.png" link="/community/NaturalScience" />
-              <SubjectCategory communityName="Education" imageSrc="/assets/Education.png" link="/community/Education" />
-              <SubjectCategory communityName="Art" imageSrc="/assets/Art.png" link="/community/Art" />
-              <SubjectCategory communityName="Med" imageSrc="/assets/Med.png" link="/community/Med" />
-              <SubjectCategory communityName="History" imageSrc="/assets/History.png" link="/community/History" />
-              <SubjectCategory communityName="Sports" imageSrc="/assets/Sports.png" link="/community/Sports" />
+            <div className='posts'>
+                {postsData.map((post, index) => (
+                    <ProjectPost
+                    key={index}
+                    community={post.community}
+                    title={post.title}
+                    content={post.content}
+                    likes={post.likes}
+                    comments={post.comments}
+                    />
+                ))}
             </div>
           </div>
         </div>
@@ -81,4 +106,4 @@ const Square = () => {
   );
 };
 
-export default Square;
+export default SubSquare;
