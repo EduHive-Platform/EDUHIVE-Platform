@@ -38,6 +38,51 @@ const projectSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now }
 });
 
+const startUpSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
+const shortResearchSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
+const longResearchSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
 const commentSchema = new mongoose.Schema({
     comment_id: { type: Number, required: false, unique: true },
     project_id: { type: Number, required: true },
@@ -69,6 +114,9 @@ const likeSchema = new mongoose.Schema({
 
 const EduUser = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
+const StartUp = mongoose.model('StartUp', startUpSchema);
+const ShortResearch = mongoose.model('StartUp', shortResearchSchema);
+const LongResearch = mongoose.model('StartUp', longResearchSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
