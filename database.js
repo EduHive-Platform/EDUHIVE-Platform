@@ -39,7 +39,7 @@ const projectSchema = new mongoose.Schema({
 });
 
 const commentSchema = new mongoose.Schema({
-    comment_id: { type: Number, required: true, unique: true },
+    comment_id: { type: Number, required: false, unique: true },
     project_id: { type: Number, required: true },
     user_id: { type: Number, required: true },
     content: { type: String, required: true },
@@ -60,10 +60,10 @@ const userCommunitySchema = new mongoose.Schema({
     create_at: { type: Date, default: Date.now },
 });
 
-const likesSchema = new mongoose.Schema({
-    like_id: { type: Number, required: true, unique: true },
-    post_id: { type: Number, required: true },
-    user_id: { type: Number, required: true },
+const likeSchema = new mongoose.Schema({
+    like_id: Number,
+    project_id: Number,  // Changed from post_id to project_id
+    user_id: Number,
     created_at: { type: Date, default: Date.now }
 });
 
@@ -72,6 +72,6 @@ const Project = mongoose.model('Project', projectSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
-const Likes = mongoose.model('Likes', likesSchema);
+const Like = mongoose.model('Like', likeSchema);
 
-module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes};
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like};

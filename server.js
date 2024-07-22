@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes} = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like} = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -190,14 +190,19 @@ app.get("/comments/:id", asyncHandler(async (req, res) => {
 
 // Create a new comment
 app.post("/comments", asyncHandler(async (req, res) => {
-    const newComment = new Comment(req.body);
+    const { project_id, user_id, content } = req.body;
+    if (!project_id) {
+        return res.status(400).json({ message: "Project ID is required" });
+    }
+    const newComment = new Comment({ project_id, user_id, content });
     await newComment.save();
     res.status(201).json(newComment);
 }));
 
 // Update a comment
 app.put("/comments/:id", asyncHandler(async (req, res) => {
-    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { project_id, user_id, content } = req.body;
+    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, { project_id, user_id, content }, { new: true });
     if (!updatedComment) {
         return res.status(404).json({ message: "Comment not found" });
     }
@@ -227,13 +232,13 @@ app.get("/projects/title/:title", asyncHandler(async (req, res) => {
 
 // Get all likes
 app.get("/likes", asyncHandler(async (req, res) => {
-    const likes = await Likes.find();
+    const likes = await Like.find();
     res.status(200).json(likes);
 }));
 
 // Get like by ID
 app.get("/likes/:id", asyncHandler(async (req, res) => {
-    const likes = await Likes.findById(req.params.id);
+    const likes = await Like.findById(req.params.id);
     if (!likes) {
         return res.status(404).json({ message: "Likes not found" });
     }
@@ -242,14 +247,19 @@ app.get("/likes/:id", asyncHandler(async (req, res) => {
 
 // Create a new like
 app.post("/likes", asyncHandler(async (req, res) => {
-    const newLike = new Likes(req.body);
+    const { project_id, user_id } = req.body;
+    if (!project_id) {
+        return res.status(400).json({ message: "Project ID is required" });
+    }
+    const newLike = new Like({ project_id, user_id });
     await newLike.save();
     res.status(201).json(newLike);
 }));
 
 // Update a like
 app.put("/likes/:id", asyncHandler(async (req, res) => {
-    const updatedLike = await Likes.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { project_id, user_id } = req.body;
+    const updatedLike = await Like.findByIdAndUpdate(req.params.id, { project_id, user_id }, { new: true });
     if (!updatedLike) {
         return res.status(404).json({ message: "Likes not found" });
     }
@@ -258,12 +268,23 @@ app.put("/likes/:id", asyncHandler(async (req, res) => {
 
 // Delete a like
 app.delete("/likes/:id", asyncHandler(async (req, res) => {
-    const deletedLike = await Likes.findByIdAndDelete(req.params.id);
+    const deletedLike = await Like.findByIdAndDelete(req.params.id);
     if (!deletedLike) {
         return res.status(404).json({ message: "Likes not found" });
     }
     res.status(200).json({ message: "Likes deleted successfully" });
 }));
+
+// Get projects by partial title match
+app.get("/projects/title/:title", asyncHandler(async (req, res) => {
+    const projectTitle = req.params.title;
+    const projects = await Project.find({ title: { $regex: projectTitle, $options: 'i' } });
+    if (projects.length === 0) {
+        return res.status(404).json({ message: "No projects found with that title" });
+    }
+    res.status(200).json(projects);
+}));
+
 
 // Get communities by partial name match
 app.get("/communities/name/:name", asyncHandler(async (req, res) => {
