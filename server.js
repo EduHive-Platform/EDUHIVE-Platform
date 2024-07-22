@@ -2,7 +2,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like} = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp } = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -247,11 +247,11 @@ app.get("/likes/:id", asyncHandler(async (req, res) => {
 
 // Create a new like
 app.post("/likes", asyncHandler(async (req, res) => {
-    const { project_id, user_id } = req.body;
+    const { project_id, email } = req.body;
     if (!project_id) {
         return res.status(400).json({ message: "Project ID is required" });
     }
-    const newLike = new Like({ project_id, user_id });
+    const newLike = new Like({ project_id, email });
     await newLike.save();
     res.status(201).json(newLike);
 }));
@@ -320,7 +320,7 @@ app.get("/api/projects", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
-// Route to get projects by community name
+// Route to get projects, comments, likes by community name 
 app.get('/projects/community/:communityName', async (req, res) => {
     const { communityName } = req.params;
     
@@ -337,6 +337,52 @@ app.get('/projects/community/:communityName', async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+app.post('/save-startup', async (req, res) => {
+    const { email, project } = req.body;
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
+
+    const user = await EduUser.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ message: "No user with that email" });
+    }
+
+    const newStartUp = new StartUp({
+        email: user.email, // Assuming user_id should be the MongoDB ObjectId
+        community_id: project.community_id,
+        status: project.status,
+        create_at: new Date(),
+        updated_at: new Date(),
+        title: project.title,
+        description: project.description,
+        area: project.area,
+        credit: project.credit,
+        job_type: project.job_type,
+        num_employees: project.num_employees,
+        job_descriptions: project.job_descriptions,
+        skills_or_requirements: project.skills_or_requirements,
+        institution: project.institution,
+        duration: project.duration,
+        other_info: project.other_info,
+        signature: project.signature
+    });
+
+    try {
+        const savedStartUp = await newStartUp.save();
+        const newProject = new Project({
+            project_id: savedStartUp._id.toString(),
+            email: savedStartUp.email
+        })
+        const savedProject = await newProject.save();
+        res.status(201).json(savedStartUp);
+    } catch (error) {
+        console.error('Failed to save startup:', error);
+        res.status(500).json({ message: 'Failed to save startup' });
+    }
+});
+
   
 async function start() {
     await connectToDB();

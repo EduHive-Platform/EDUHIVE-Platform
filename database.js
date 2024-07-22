@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const projectSchema = new mongoose.Schema({
-    project_id: Number,
-    user_id: Number,
+    project_id: String,
+    email: String,
     community_id: Number,
     title: String,
     content: String,
@@ -39,6 +39,12 @@ const projectSchema = new mongoose.Schema({
 });
 
 const startUpSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
     title: String,
     description: String,
     area: String,
@@ -54,6 +60,12 @@ const startUpSchema = new mongoose.Schema({
 })
 
 const shortResearchSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
     title: String,
     description: String,
     area: String,
@@ -69,6 +81,12 @@ const shortResearchSchema = new mongoose.Schema({
 })
 
 const longResearchSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
     title: String,
     description: String,
     area: String,
@@ -84,8 +102,8 @@ const longResearchSchema = new mongoose.Schema({
 })
 
 const commentSchema = new mongoose.Schema({
-    comment_id: { type: Number, required: false, unique: true },
-    project_id: { type: Number, required: true },
+  //  comment_id: { type: Number, required: false, unique: true },
+    project_id: String,
     user_id: { type: Number, required: true },
     content: { type: String, required: true },
     created_at: { type: Date, default: Date.now },
@@ -106,20 +124,20 @@ const userCommunitySchema = new mongoose.Schema({
 });
 
 const likeSchema = new mongoose.Schema({
-    like_id: Number,
-    project_id: Number,  // Changed from post_id to project_id
-    user_id: Number,
+    // deleted the like_id
+    project_id: String,  // Changed from post_id to project_id
+    email: String,  // changed from user_id to email
     created_at: { type: Date, default: Date.now }
 });
 
 const EduUser = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
 const StartUp = mongoose.model('StartUp', startUpSchema);
-const ShortResearch = mongoose.model('StartUp', shortResearchSchema);
-const LongResearch = mongoose.model('StartUp', longResearchSchema);
+const ShortResearch = mongoose.model('ShortResearch', shortResearchSchema);
+const LongResearch = mongoose.model('LongResearch', longResearchSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
 const Like = mongoose.model('Like', likeSchema);
 
-module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like};
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp };

@@ -1,0 +1,5 @@
+// Get the objectID type given a string _id
+var ObjectID = require('mongodb').ObjectID;
+
+var idString = '4e4e1638c85e808431000003';
+collection.findOne({_id: new ObjectID(idString)}, console.log)  // ok
