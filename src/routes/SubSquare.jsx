@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import ProjectPost from '../components/ProjectPost';
 import SubjectCategory from '../components/SubjectCategory';
 import HeaderMain from '../components/HeaderMain';
 import SearchBox from '../components/SearchBox'; 
-import './SubSquare.css'
+import './SubSquare.css';
 import { useLocation } from 'react-router-dom';
-
+import axios from 'axios';
 
 const SubSquare = () => {
   const location = useLocation();
   const communityName = location.state ? location.state.communityName : 'Default Community';
+  //console.log(communityName)
+
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
+        console.log(response.data)
+        setProjects(response.data);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, [communityName]);
 
   const sidebarItems = [
     { label: 'Community', subLinks: [{ label: 'Computer Science', href: '/ComputerScience' }, { label: 'Electrical Engineering', href: '/subhome2' },
@@ -31,7 +51,7 @@ const SubSquare = () => {
     { label: 'Help' },
     { label: 'Privacy' },
     { label: 'Logout' },
-    { label: 'Oppertunities' },
+    { label: 'Opportunities' },
     { label: 'Topics' },
   ];
 
@@ -57,48 +77,28 @@ const SubSquare = () => {
     // Add your filter logic here
   };
 
-  const postsData = [
-    {
-      community: 'Community 1',
-      title: 'First Post',
-      content: 'This is the content of the first post.',
-      likes: 10,
-      comments: ['Great post!', 'Thanks for sharing.'],
-    },
-    {
-      community: 'Community 2',
-      title: 'Second Post',
-      content: 'This is the content of the second post.',
-      likes: 20,
-      comments: ['Very informative.', 'I learned a lot.'],
-    },
-    {
-      community: 'Community 3',
-      title: 'Third Post',
-      content: 'This is the content of the third post.',
-      likes: 15,
-      comments: ['Interesting perspective.', 'Good read!'],
-    },
-  ];
-
   return (
     <div className="square-page">
         <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
         <div className="square-container">
           <Sidebar items={sidebarItems} />
           <div className="main-content">
-            <SearchBox onSearch={handleSearch} onFilter={handleFilter} /> {/* Add the SearchBox here */}
+            <SearchBox onSearch={handleSearch} onFilter={handleFilter} />
             <div className='posts'>
-                {postsData.map((post, index) => (
-                    <ProjectPost
+              {loading ? (
+                <p>Loading projects...</p>
+              ) : (
+                projects.map((project, index) => (
+                  <ProjectPost
                     key={index}
-                    community={post.community}
-                    title={post.title}
-                    content={post.content}
-                    likes={post.likes}
-                    comments={post.comments}
-                    />
-                ))}
+                    community={communityName}
+                    title={project.title}
+                    content={project.description}
+                    likes={project.num_likes}
+                    comments={project.comments.map(comment => comment.content)}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>
