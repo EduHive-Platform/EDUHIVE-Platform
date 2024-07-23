@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -6,6 +7,7 @@ const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, 
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const { ObjectId } = require('mongodb')
 
 dotenv.config();
 
@@ -173,12 +175,6 @@ app.delete("/projects/:id", asyncHandler(async (req, res) => {
 
 // CRUD operations for comment
 
-// Get all comments
-app.get("/comments", asyncHandler(async (req, res) => {
-    const comments = await Comment.find();
-    res.status(200).json(comments);
-}));
-
 // Get comment by ID
 app.get("/comments/:id", asyncHandler(async (req, res) => {
     const comment = await Comment.findById(req.params.id);
@@ -199,15 +195,6 @@ app.post("/comments", asyncHandler(async (req, res) => {
     res.status(201).json(newComment);
 }));
 
-// Update a comment
-app.put("/comments/:id", asyncHandler(async (req, res) => {
-    const { project_id, email, content } = req.body;
-    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, { project_id, email, content }, { new: true });
-    if (!updatedComment) {
-        return res.status(404).json({ message: "Comment not found" });
-    }
-    res.status(200).json(updatedComment);
-}));
 
 // Delete a comment
 app.delete("/comments/:id", asyncHandler(async (req, res) => {
@@ -228,22 +215,7 @@ app.get("/projects/title/:title", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
-// CRUD operations for likes
 
-// Get all likes
-app.get("/likes", asyncHandler(async (req, res) => {
-    const likes = await Like.find();
-    res.status(200).json(likes);
-}));
-
-// Get like by ID
-app.get("/likes/:id", asyncHandler(async (req, res) => {
-    const likes = await Like.findById(req.params.id);
-    if (!likes) {
-        return res.status(404).json({ message: "Likes not found" });
-    }
-    res.status(200).json(likes);
-}));
 
 // Create a new like
 app.post("/likes", asyncHandler(async (req, res) => {
@@ -254,16 +226,6 @@ app.post("/likes", asyncHandler(async (req, res) => {
     const newLike = new Like({ project_id, email });
     await newLike.save();
     res.status(201).json(newLike);
-}));
-
-// Update a like
-app.put("/likes/:id", asyncHandler(async (req, res) => {
-    const { project_id, user_id } = req.body;
-    const updatedLike = await Like.findByIdAndUpdate(req.params.id, { project_id, user_id }, { new: true });
-    if (!updatedLike) {
-        return res.status(404).json({ message: "Likes not found" });
-    }
-    res.status(200).json(updatedLike);
 }));
 
 // Delete a like
@@ -331,9 +293,13 @@ app.post('/communities', async(req, res) => {
     res.status(201).json(newCommunity);
 })
 
-// Route to get projects, comments, likes by community name 
+const subTableModels = {
+    StartUp: StartUp
+};
+
 app.get('/projects/community/:communityName', async (req, res) => {
     const { communityName } = req.params;
+    //console.log(StartUp)
     
     try {
         const community = await Community.findOne({ community_name: communityName });
@@ -343,8 +309,20 @@ app.get('/projects/community/:communityName', async (req, res) => {
         
         const projects = await Project.find({ community_id: Number(community.community_id) }).lean();
         const projectIds = projects.map(project => project.project_id);
-        console.log(projectIds)
-        
+
+        // Fetch projects from sub-tables based on project_type
+        const subTableProjects = await Promise.all(projects.map(async project => {
+            const subTableModel = subTableModels[project.project_type];
+            //console.log(subTableModel)
+            if (subTableModel) {
+                const subTableProject = await subTableModel.findOne({ _id: new ObjectId(project.project_id) }).lean();
+                //console.log(subTableProject)
+                return { ...project, ...subTableProject };
+            }
+            return project;
+        }));
+        //console.log(subTableProjects)
+
         const comments = await Comment.aggregate([
             { $match: { project_id: { $in: projectIds } } },
             { $group: { _id: "$project_id", comments: { $push: "$$ROOT" } } }
@@ -352,7 +330,6 @@ app.get('/projects/community/:communityName', async (req, res) => {
         console.log(comments)
         
         const commentsMap = new Map(comments.map(comment => [comment._id.toString(), comment.comments]));
-        console.log(commentsMap)
 
         const likesCount = await Like.aggregate([
             { $match: { project_id: { $in: projectIds } } },
@@ -361,9 +338,8 @@ app.get('/projects/community/:communityName', async (req, res) => {
         console.log(likesCount)
 
         const likesMap = new Map(likesCount.map(item => [item._id.toString(), item.count]));
-        console.log(likesMap)
- 
-        const projectsWithDetails = projects.map(project => ({
+
+        const projectsWithDetails = subTableProjects.map(project => ({
             ...project,
             comments: commentsMap.get(project.project_id.toString()) || [],
             num_likes: likesMap.get(project.project_id.toString()) || 0
@@ -375,6 +351,7 @@ app.get('/projects/community/:communityName', async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
 
 
 app.post('/save-startup', async (req, res) => {
@@ -412,6 +389,7 @@ app.post('/save-startup', async (req, res) => {
         const savedStartUp = await newStartUp.save();
         const newProject = new Project({
             project_id: savedStartUp._id.toString(),
+            project_type: "StartUp",
             community_id: savedStartUp.community_id,
             email: savedStartUp.email
         })
@@ -431,6 +409,7 @@ async function start() {
         console.log("Listening on port 3000");
     });
 }
+
 
 if (require.main === module) {
     start().catch((err) => console.error(err));

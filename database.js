@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
 
 const projectSchema = new mongoose.Schema({
     project_id: String,
+    project_type: String,
     email: String,
     community_id: Number,
     title: String,
