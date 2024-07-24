@@ -6,6 +6,7 @@ import HeaderMain from '../components/HeaderMain';
 import SearchBox from '../components/SearchBox'; 
 import './SubSquare.css';
 import { useLocation } from 'react-router-dom';
+import { Oval } from 'react-loader-spinner';
 import axios from 'axios';
 
 const SubSquare = () => {
@@ -95,10 +96,26 @@ const SubSquare = () => {
         <div className="square-container">
           <Sidebar items={sidebarItems} />
           <div className="main-content">
+            <div className='search-box'>
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} />
+            </div>
             <div className='posts'>
               {loading ? (
-                <p>Loading projects...</p>
+                <div className="loading-container">
+                  <Oval
+                    height={80}
+                    width={80}
+                    color="#0056b3"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel='oval-loading'
+                    secondaryColor="#0056b3"
+                    strokeWidth={2}
+                    strokeWidthSecondary={2}
+                  />
+                  <p>Loading projects...</p>
+                </div>
               ) : (
                 projects.map((project, index) => (
                   <ProjectPost

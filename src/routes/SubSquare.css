@@ -4,5 +4,24 @@
 }
 
 .main-content {
-    margin-top: 20px;
+    margin-top: 80px;
 }
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px; 
+    margin-left: 350px;
+  }
+
+.search-box {
+    position: fixed;
+    top: 20px; /* Adjust as needed */
+    width: 100%; /* Adjust as needed */
+
+    z-index: 1000; /* Ensure it stays on top */
+    padding: 10px; /* Adjust as needed */
+
+  }
