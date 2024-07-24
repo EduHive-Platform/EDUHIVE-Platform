@@ -10,6 +10,7 @@ import axios from 'axios';
 
 const SubSquare = () => {
   const location = useLocation();
+  const [searchText, setSearchText] = useState('');
   const communityName = location.state ? location.state.communityName : 'Default Community';
   //console.log(communityName)
 
@@ -20,7 +21,6 @@ const SubSquare = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
-        console.log(response.data)
         setProjects(response.data);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -67,9 +67,21 @@ const SubSquare = () => {
     { label: 'Instagram', href: 'https://www.instagram.com' },
   ];
 
-  const handleSearch = (query) => {
-    console.log('Searching for:', query);
-    // Add your search logic here
+  const handleInputChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearch = async (query) => {
+    setSearchText(query);  // Update searchText with the query
+    setLoading(true);
+    try {
+      const response = await axios.get(`http://localhost:3000/projects/community/${query}`);
+      setProjects(response.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFilter = () => {
