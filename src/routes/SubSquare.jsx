@@ -12,8 +12,11 @@ import axios from 'axios';
 const SubSquare = () => {
   const location = useLocation();
   const [searchText, setSearchText] = useState('');
+  const [finalCommunityName, setFinalCommunityName] = useState('')
+  //const [communityName, setCommunityName] = useState('');
   const communityName = location.state ? location.state.communityName : 'Default Community';
-  //console.log(communityName)
+  //setFinalCommunityName(communityName)
+  console.log(communityName)
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,6 +26,7 @@ const SubSquare = () => {
       try {
         const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
         setProjects(response.data);
+        setFinalCommunityName(communityName)
       } catch (error) {
         console.error('Error fetching projects:', error);
       } finally {
@@ -57,10 +61,10 @@ const SubSquare = () => {
   ];
 
   const leftLinks = [
-    { label: 'Solutions', href: '/solutions' },
-    { label: 'About', href: '/about' },
-    { label: 'Insights', href: '/insights' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Profile', href: '/solutions' },
+    { label: 'Post', href: '/about' },
+    { label: 'Plaza', href: '/insights' },
+    { label: 'Dashboard', href: '/contact' },
   ];
 
   const rightLinks = [
@@ -68,13 +72,10 @@ const SubSquare = () => {
     { label: 'Instagram', href: 'https://www.instagram.com' },
   ];
 
-  const handleInputChange = (event) => {
-    setSearchText(event.target.value);
-  };
-
   const handleSearch = async (query) => {
     setSearchText(query);  // Update searchText with the query
     setLoading(true);
+    setFinalCommunityName(query)
     try {
       const response = await axios.get(`http://localhost:3000/projects/community/${query}`);
       setProjects(response.data);
@@ -95,7 +96,7 @@ const SubSquare = () => {
         <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
         <div className="square-container">
           <Sidebar items={sidebarItems} />
-          <div className="main-content">
+          <div className="main-content2">
             <div className='search-box'>
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} />
             </div>
@@ -120,7 +121,7 @@ const SubSquare = () => {
                 projects.map((project, index) => (
                   <ProjectPost
                     key={index}
-                    community={communityName}
+                    communityName={finalCommunityName}
                     title={project.title}
                     content={project.description}
                     likes={project.num_likes}
