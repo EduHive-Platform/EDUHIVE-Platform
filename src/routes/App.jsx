@@ -7,9 +7,10 @@ import SignUp from './SignUp';
 import EmailVerification from './EmailVerification';
 import StudentPost from './StudentPost';
 import NotFound from './NotFound';
-import Square from './Square'
+import Square from './Square';
 import SubSquare from './SubSquare';
 import CommunityDescription from './CommunityDescription';
+import PostTypeSelect from './PostTypeSelect'; // Import the new component
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="/studentPost" element={<StudentPost />} />
+        <Route path="/postTypeSelect" element={<PostTypeSelect />} /> {/* New Route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
