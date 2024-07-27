@@ -12,6 +12,8 @@ import SubSquare from './SubSquare';
 import CommunityDescription from './CommunityDescription';
 import PostTypeSelect from './PostTypeSelect'; // Import the new component
 import ResearchTypeSelect from './ResearchTypeSelect';
+import PostStartup from '../components/PostStartup';
+
 function App() {
   return (
     <div className="App">
@@ -29,6 +31,7 @@ function App() {
         <Route path="/studentPost" element={<StudentPost />} />
         <Route path="/postTypeSelect" element={<PostTypeSelect />} />
         <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
+        <Route path="/postStartup" element={<PostStartup/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
