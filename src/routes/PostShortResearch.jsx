@@ -6,8 +6,8 @@ function PostShortResearch() {
 
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
-    { label: 'Post', href: '/about' },
-    { label: 'Plaza', href: '/insights' },
+    { label: 'Post', href: '/postTypeSelect' },
+    { label: 'Plaza', href: '/square' },
     { label: 'Dashboard', href: '/contact' },
   ];
 
@@ -15,7 +15,7 @@ function PostShortResearch() {
     { label: 'LinkedIn', href: 'https://www.linkedin.com' },
     { label: 'Instagram', href: 'https://www.instagram.com' },
   ];
-  
+
   return (
     <div className="App">
       <div className="post-startup">

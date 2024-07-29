@@ -11,8 +11,8 @@ body {
 
 .post-type-select h1 {
   font-size: 2em;
-  color: #009688;
-  margin-bottom: 20px;
+  color: #116E6A;
+  margin-bottom: 120px;
 }
 
 .card-container {
@@ -23,7 +23,7 @@ body {
 
 .card {
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
   width: 250px;
   text-align: center;

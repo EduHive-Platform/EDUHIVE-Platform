@@ -62,8 +62,8 @@ const SubSquare = () => {
 
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
-    { label: 'Post', href: '/about' },
-    { label: 'Plaza', href: '/insights' },
+    { label: 'Post', href: '/postTypeSelect' },
+    { label: 'Plaza', href: '/square' },
     { label: 'Dashboard', href: '/contact' },
   ];
 

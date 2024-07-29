@@ -12,8 +12,8 @@ import SubSquare from './SubSquare';
 import CommunityDescription from './CommunityDescription';
 import PostTypeSelect from './PostTypeSelect'; // Import the new component
 import ResearchTypeSelect from './ResearchTypeSelect';
-import PostStartup from '../components/PostStartup';
-import PostShortResearch from "../components/PostShortResearch"
+import PostStartup from './PostStartup';
+import PostShortResearch from "./PostShortResearch"
 
 function App() {
   return (

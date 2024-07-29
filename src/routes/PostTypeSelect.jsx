@@ -1,10 +1,17 @@
 import React from 'react';
 import './PostTypeSelect.css';
+import { useNavigate } from 'react-router-dom';
 
 function PostTypeSelect() {
+  const navigate = useNavigate();
   const handleTypeSelect = (type) => {
     console.log(`Selected type: ${type}`);
     // You can add more functionality here, such as updating state or calling a parent component's function
+    if (type === "startup") {
+      navigate('/postStartup')
+    } else {
+      navigate('/postShortResearch')
+    }
   };
 
   const leftLinks = [
