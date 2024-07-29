@@ -31,10 +31,10 @@ const Square = () => {
   ];
 
   const leftLinks = [
-    { label: 'Solutions', href: '/solutions' },
-    { label: 'About', href: '/about' },
-    { label: 'Insights', href: '/insights' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Profile', href: '/solutions' },
+    { label: 'Post', href: '/about' },
+    { label: 'Plaza', href: '/insights' },
+    { label: 'Dashboard', href: '/contact' },
   ];
 
   const rightLinks = [
@@ -44,12 +44,12 @@ const Square = () => {
 
   const handleSearch = (query) => {
     console.log('Searching for:', query);
-    // Add your search logic here
+
   };
 
   const handleFilter = () => {
     console.log('Filter button clicked');
-    // Add your filter logic here
+
   };
 
   return (

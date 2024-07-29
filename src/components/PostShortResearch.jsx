@@ -1,25 +1,25 @@
 import React from 'react';
 import './PostShortResearch.css';
+import HeaderMain from '../components/HeaderMain';
 
 function PostShortResearch() {
+
+  const leftLinks = [
+    { label: 'Profile', href: '/solutions' },
+    { label: 'Post', href: '/about' },
+    { label: 'Plaza', href: '/insights' },
+    { label: 'Dashboard', href: '/contact' },
+  ];
+
+  const rightLinks = [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com' },
+  ];
+  
   return (
     <div className="App">
       <div className="post-startup">
-        <header>
-          <nav>
-            <ul>
-              <li><a href="#profile">My Profile</a></li>
-              <li><a href="#post">Post</a></li>
-              <li><a href="#plaza">Plaza</a></li>
-              <li><a href="#dashboard">Dashboard</a></li>
-            </ul>
-            <div className="social-links">
-              <a href="https://www.linkedin.com">LinkedIn</a>
-              <a href="https://www.instagram.com">Instagram</a>
-            </div>
-          </nav>
-          <h1>EduHive</h1>
-        </header>
+      <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
         <main>
           <h2>Post Short Research Opportunity</h2>
           <form>

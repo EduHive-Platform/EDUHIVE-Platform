@@ -7,6 +7,18 @@ function PostTypeSelect() {
     // You can add more functionality here, such as updating state or calling a parent component's function
   };
 
+  const leftLinks = [
+    { label: 'Profile', href: '/solutions' },
+    { label: 'Post', href: '/about' },
+    { label: 'Plaza', href: '/insights' },
+    { label: 'Dashboard', href: '/contact' },
+  ];
+
+  const rightLinks = [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com' },
+  ];
+
   return (
     <div className="post-type-select">
       <h1>Select Post Type</h1>

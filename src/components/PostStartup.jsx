@@ -1,25 +1,25 @@
 import React from 'react';
 import './PostStartup.css';
+import HeaderMain from '../components/HeaderMain';
 
 function PostStartup() {
+
+  const leftLinks = [
+    { label: 'Profile', href: '/solutions' },
+    { label: 'Post', href: '/about' },
+    { label: 'Plaza', href: '/insights' },
+    { label: 'Dashboard', href: '/contact' },
+  ];
+
+  const rightLinks = [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com' },
+  ];
+  
   return (
     <div className="App">
       <div className="post-startup">
-        <header>
-          <nav>
-            <ul className="nav-links">
-              <li><a href="#profile">My Profile</a></li>
-              <li><a href="#post">Post</a></li>
-              <li><a href="#mailbox">Mailbox</a></li>
-              <li><a href="#plaza">Plaza</a></li>
-            </ul>
-            <div className="social-links">
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-            </div>
-          </nav>
-          <h1>EduHive</h1>
-        </header>
+      <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
         <main>
           <h2>Post your startup, closer to your dream</h2>
           <form>

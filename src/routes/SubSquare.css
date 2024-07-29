@@ -1,6 +1,7 @@
 .posts {
     margin-top: 0px;
     margin-left: 300px;
+    width: calc(100% - 300px);
 }
 
 .main-content2 {

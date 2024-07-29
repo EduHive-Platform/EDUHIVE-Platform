@@ -359,7 +359,7 @@ app.post('/save-startup', async (req, res) => {
     if (!email || !project) {
         return res.status(400).json({ message: "Invalid email or project" });
     }
-
+    // 加上password验证
     const user = await EduUser.findOne({ email: email });
     if (!user) {
         return res.status(404).json({ message: "No user with that email" });
