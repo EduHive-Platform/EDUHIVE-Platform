@@ -11,6 +11,9 @@ import Square from './Square';
 import SubSquare from './SubSquare';
 import CommunityDescription from './CommunityDescription';
 import PostTypeSelect from './PostTypeSelect'; // Import the new component
+import ResearchTypeSelect from './ResearchTypeSelect';
+import PostStartup from '../components/PostStartup';
+import PostShortResearch from "../components/PostShortResearch"
 
 function App() {
   return (
@@ -27,7 +30,11 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         <Route path="/studentPost" element={<StudentPost />} />
-        <Route path="/postTypeSelect" element={<PostTypeSelect />} /> {/* New Route */}
+        <Route path="/postTypeSelect" element={<PostTypeSelect />} />
+        <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
+        <Route path="/postStartup" element={<PostStartup/>} />
+        <Route path="/postShortResearch" element={<PostShortResearch/>} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

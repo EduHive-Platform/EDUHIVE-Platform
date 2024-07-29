@@ -1,0 +1,150 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body, #root, .App {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  
+  .post-startup {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 20px 0;
+    width: 100%;
+  }
+  
+  header nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-links a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  header h1 {
+    font-size: 2em;
+    color: #009688;
+  }
+  
+  header .subtitle {
+    font-size: 0.9em;
+    color: #888;
+  }
+  
+  main {
+    text-align: center;
+    margin: 50px 0;
+    padding: 0 20px;
+  }
+  
+  main h2 {
+    font-size: 1.5em;
+    color: #000;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .form-group {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  form textarea {
+    height: 100px;
+  }
+  
+  .employees-allocation .job-type-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .job-type-container input {
+    flex: 1;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #009688;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  form button:hover {
+    background-color: #00796b;
+  }
+  
+  .btn-add {
+    background-color: #00bcd4;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
