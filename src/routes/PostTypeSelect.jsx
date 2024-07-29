@@ -29,12 +29,12 @@ function PostTypeSelect() {
   return (
     <div className="post-type-select">
       <h1>Select Post Type</h1>
-      <div className="card-container">
-        <div className="card" onClick={() => handleTypeSelect('startup')}>
+      <div className="card1-container">
+        <div className="card1" onClick={() => handleTypeSelect('startup')}>
           <img src="/assets/Business.png" alt="StartUp" />
           <h2>StartUp</h2>
         </div>
-        <div className="card" onClick={() => handleTypeSelect('research')}>
+        <div className="card1" onClick={() => handleTypeSelect('research')}>
           <img src="/assets/Humanity.png" alt="Research" />
           <h2>Research</h2>
         </div>
