@@ -1,0 +1,47 @@
+.community-page {
+    display: flex;
+    height: 100vh;
+    align-items: stretch;  /* Ensure the children fill the vertical space */
+  }
+  
+  .image-container2 {
+    width: 50%; /* Larger size for the image */
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .image-container2 img {
+    height: 90%;
+    width: auto;
+    object-fit: cover; /* Ensure the image covers the full container without distortion */
+  }
+  
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligns content to the top */
+    padding: 2rem;
+    position: relative;
+    width: 40%;
+  }
+  
+  .func-buttons2 {
+    margin-top: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .desc {
+    font-family: "Cormorant Garamond", serif;
+  }
+  

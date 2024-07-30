@@ -1,11 +1,13 @@
 const express = require("express");
+const mongoose = require('mongoose');
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes} = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch } = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const { ObjectId } = require('mongodb')
 
 dotenv.config();
 
@@ -20,20 +22,36 @@ app.use(express.static(__dirname + "/public"));
 
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
-    const { name, dateOfBirth, institution, email, created_at, password} = req.body;
-    const password_hash = await bcrypt.hash(password, 10);
-    const newUser = new EduUser({
-        username: name,
-        password_hash,
-        email,
-        dateOfBirth,
-        institution,
-        created_at
-    });
+    try {
+        const { name, dateOfBirth, institution, email, created_at, password } = req.body;
+        const password_hash = await bcrypt.hash(password, 10);
 
-    await newUser.save();
-    res.status(200).json({ message: "User saved successfully", data: newUser });
+        const newUser = new EduUser({
+            username: name,
+            password_hash,
+            email,
+            dateOfBirth,
+            institution,
+            created_at,
+        });
+
+        await newUser.save();
+        res.status(200).json({ message: "User saved successfully", data: newUser });
+    } catch (error) {
+        console.error('Error saving user:', error);
+        if (error.code === 11000) { // MongoDB duplicate key error code
+            const duplicateField = Object.keys(error.keyValue)[0];
+            res.status(400).json({ error: `Duplicate key error: ${duplicateField} already exists.` });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }));
+// Error handling middleware for async errors
+app.use((err, req, res, next) => {
+    res.status(500).json({ error: err.message });
+});
+
 
 app.post("/save-project", asyncHandler(async (req, res) => {
     const { email, project } = req.body;
@@ -157,12 +175,6 @@ app.delete("/projects/:id", asyncHandler(async (req, res) => {
 
 // CRUD operations for comment
 
-// Get all comments
-app.get("/comments", asyncHandler(async (req, res) => {
-    const comments = await Comment.find();
-    res.status(200).json(comments);
-}));
-
 // Get comment by ID
 app.get("/comments/:id", asyncHandler(async (req, res) => {
     const comment = await Comment.findById(req.params.id);
@@ -174,19 +186,15 @@ app.get("/comments/:id", asyncHandler(async (req, res) => {
 
 // Create a new comment
 app.post("/comments", asyncHandler(async (req, res) => {
-    const newComment = new Comment(req.body);
+    const { project_id, email, content } = req.body;
+    if (!project_id) {
+        return res.status(400).json({ message: "Project ID is required" });
+    }
+    const newComment = new Comment({ project_id, email, content });
     await newComment.save();
     res.status(201).json(newComment);
 }));
 
-// Update a comment
-app.put("/comments/:id", asyncHandler(async (req, res) => {
-    const updatedComment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedComment) {
-        return res.status(404).json({ message: "Comment not found" });
-    }
-    res.status(200).json(updatedComment);
-}));
 
 // Delete a comment
 app.delete("/comments/:id", asyncHandler(async (req, res) => {
@@ -207,47 +215,38 @@ app.get("/projects/title/:title", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
-// CRUD operations for likes
 
-// Get all likes
-app.get("/likes", asyncHandler(async (req, res) => {
-    const likes = await Likes.find();
-    res.status(200).json(likes);
-}));
-
-// Get like by ID
-app.get("/likes/:id", asyncHandler(async (req, res) => {
-    const likes = await Likes.findById(req.params.id);
-    if (!likes) {
-        return res.status(404).json({ message: "Likes not found" });
-    }
-    res.status(200).json(likes);
-}));
 
 // Create a new like
 app.post("/likes", asyncHandler(async (req, res) => {
-    const newLike = new Likes(req.body);
+    const { project_id, email } = req.body;
+    if (!project_id) {
+        return res.status(400).json({ message: "Project ID is required" });
+    }
+    const newLike = new Like({ project_id, email });
     await newLike.save();
     res.status(201).json(newLike);
 }));
 
-// Update a like
-app.put("/likes/:id", asyncHandler(async (req, res) => {
-    const updatedLike = await Likes.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedLike) {
-        return res.status(404).json({ message: "Likes not found" });
-    }
-    res.status(200).json(updatedLike);
-}));
-
 // Delete a like
 app.delete("/likes/:id", asyncHandler(async (req, res) => {
-    const deletedLike = await Likes.findByIdAndDelete(req.params.id);
+    const deletedLike = await Like.findByIdAndDelete(req.params.id);
     if (!deletedLike) {
         return res.status(404).json({ message: "Likes not found" });
     }
     res.status(200).json({ message: "Likes deleted successfully" });
 }));
+
+// Get projects by partial title match
+app.get("/projects/title/:title", asyncHandler(async (req, res) => {
+    const projectTitle = req.params.title;
+    const projects = await Project.find({ title: { $regex: projectTitle, $options: 'i' } });
+    if (projects.length === 0) {
+        return res.status(404).json({ message: "No projects found with that title" });
+    }
+    res.status(200).json(projects);
+}));
+
 
 // Get communities by partial name match
 app.get("/communities/name/:name", asyncHandler(async (req, res) => {
@@ -269,7 +268,187 @@ app.get("/users/name/:name", asyncHandler(async (req, res) => {
     res.status(200).json(users);
 }));
 
+// Add a new endpoint for form submissions
+app.post('/submit-form', (req, res) => {
+    const formData = req.body;
+    console.log('Form data received:', formData);
+    // Here you can handle the form data (e.g., save it to a database)
+    res.status(200).json({ message: 'Form data received successfully', data: formData });
+  });  
 
+// Add endpoint to fetch projects
+app.get("/api/projects", asyncHandler(async (req, res) => {
+    const projects = await Project.find(); // Assuming 'Project' is your mongoose model
+    res.status(200).json(projects);
+}));
+
+// save communities 
+app.post('/communities', async(req, res) => {
+    const { community_name, community_id, description } = req.body
+    if (!community_name || !community_id || !description) {
+        return res.status(400).json({ message: "community_id and communityName and community description is required" });
+    }
+    const newCommunity = new Community({ community_name, community_id, description });
+    await newCommunity.save();
+    res.status(201).json(newCommunity);
+})
+
+const subTableModels = {
+    StartUp: StartUp
+};
+
+app.get('/projects/community/:communityName', async (req, res) => {
+    const { communityName } = req.params;
+    //console.log(StartUp)
+    
+    try {
+        const community = await Community.findOne({ community_name: communityName });
+        if (!community) {
+            return res.status(404).json({ message: 'Community not found' });
+        }
+        
+        const projects = await Project.find({ community_id: Number(community.community_id) }).lean();
+        const projectIds = projects.map(project => project.project_id);
+
+        // Fetch projects from sub-tables based on project_type
+        const subTableProjects = await Promise.all(projects.map(async project => {
+            const subTableModel = subTableModels[project.project_type];
+            //console.log(subTableModel)
+            if (subTableModel) {
+                const subTableProject = await subTableModel.findOne({ _id: new ObjectId(project.project_id) }).lean();
+                //console.log(subTableProject)
+                return { ...project, ...subTableProject };
+            }
+            return project;
+        }));
+        //console.log(subTableProjects)
+
+        const comments = await Comment.aggregate([
+            { $match: { project_id: { $in: projectIds } } },
+            { $group: { _id: "$project_id", comments: { $push: "$$ROOT" } } }
+        ]);
+        console.log(comments)
+        
+        const commentsMap = new Map(comments.map(comment => [comment._id.toString(), comment.comments]));
+
+        const likesCount = await Like.aggregate([
+            { $match: { project_id: { $in: projectIds } } },
+            { $group: { _id: "$project_id", count: { $sum: 1 } } }
+        ]);
+        console.log(likesCount)
+
+        const likesMap = new Map(likesCount.map(item => [item._id.toString(), item.count]));
+
+        const projectsWithDetails = subTableProjects.map(project => ({
+            ...project,
+            comments: commentsMap.get(project.project_id.toString()) || [],
+            num_likes: likesMap.get(project.project_id.toString()) || 0
+        }));
+        
+        res.json(projectsWithDetails);
+    } catch (error) {
+        console.error('Database query error:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+
+app.post('/save-startup', async (req, res) => {
+    const { email, project } = req.body;
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
+    // 加上password验证
+    const user = await EduUser.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ message: "No user with that email" });
+    }
+
+    const newStartUp = new StartUp({
+        email: user.email, // Assuming user_id should be the MongoDB ObjectId
+        community_id: project.community_id,
+        status: project.status,
+        create_at: new Date(),
+        updated_at: new Date(),
+        title: project.title,
+        description: project.description,
+        area: project.area,
+        credit: project.credit,
+        job_type: project.job_type,
+        num_employees: project.num_employees,
+        job_descriptions: project.job_descriptions,
+        skills_or_requirements: project.skills_or_requirements,
+        institution: project.institution,
+        duration: project.duration,
+        other_info: project.other_info,
+        signature: project.signature
+    });
+
+    try {
+        const savedStartUp = await newStartUp.save();
+        const newProject = new Project({
+            project_id: savedStartUp._id.toString(),
+            project_type: "StartUp",
+            community_id: savedStartUp.community_id,
+            email: savedStartUp.email
+        })
+        const savedProject = await newProject.save();
+        res.status(201).json(savedStartUp);
+    } catch (error) {
+        console.error('Failed to save startup:', error);
+        res.status(500).json({ message: 'Failed to save startup' });
+    }
+});
+
+app.post('/save-short-research', async (req, res) => {
+    const { email, project } = req.body;
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
+    // 加上password验证
+    const user = await EduUser.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ message: "No user with that email" });
+    }
+
+    const newShortResearch = new ShortResearch({
+        email: user.email, // Assuming user_id should be the MongoDB ObjectId
+        community_id: project.community_id,
+        status: project.status,
+        create_at: new Date(),
+        updated_at: new Date(),
+        title: project.title,
+        description: project.description,
+        area: project.area,
+        credit: project.credit,
+        job_type: project.job_type,
+        num_employees: project.num_employees,
+        job_descriptions: project.job_descriptions,
+        skills_or_requirements: project.skills_or_requirements,
+        institution: project.institution,
+        duration: project.duration,
+        other_info: project.other_info,
+        signature: project.signature
+    });
+
+    try {
+        const savedShortResearch = await newShortResearch.save();
+        const newProject = new Project({
+            project_id: savedShortResearch._id.toString(),
+            project_type: "ShortResearch",
+            community_id: savedShortResearch.community_id,
+            email: savedShortResearch.email
+        })
+        const savedProject = await newProject.save();
+        res.status(201).json(savedShortResearch);
+    } catch (error) {
+        console.error('Failed to save startup:', error);
+        res.status(500).json({ message: 'Failed to save startup' });
+    }
+});
+
+  
 async function start() {
     await connectToDB();
 
@@ -277,6 +456,7 @@ async function start() {
         console.log("Listening on port 3000");
     });
 }
+
 
 if (require.main === module) {
     start().catch((err) => console.error(err));

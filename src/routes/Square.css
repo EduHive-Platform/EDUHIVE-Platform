@@ -12,6 +12,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     margin-left: 200px; /* Adjust the margin as needed */
+    margin-top: 100px;
     flex: 1;
   }
   
@@ -19,4 +20,8 @@
     flex: 1 1 calc(25% - 20px); /* Adjust percentage and margin as needed for responsiveness */
     margin: 10px;
   }
+
+.search {
+    margin-top: 20px;
+}
   

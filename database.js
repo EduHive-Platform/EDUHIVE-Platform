@@ -24,8 +24,9 @@ const userSchema = new mongoose.Schema({
 });
 
 const projectSchema = new mongoose.Schema({
-    project_id: Number,
-    user_id: Number,
+    project_id: String,
+    project_type: String,
+    email: String,
     community_id: Number,
     title: String,
     content: String,
@@ -38,10 +39,73 @@ const projectSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now }
 });
 
+const startUpSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
+const shortResearchSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
+const longResearchSchema = new mongoose.Schema({
+    project_id: String,
+    email: String,
+    community_id: Number,
+    status: String,
+    create_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now },
+    title: String,
+    description: String,
+    area: String,
+    credit: String,
+    job_type: String,
+    num_employees: Number,
+    job_descriptions: String,
+    skills_or_requirements: String,
+    institution: String,
+    duration: String,
+    other_info: String,
+    signature: String
+})
+
 const commentSchema = new mongoose.Schema({
-    comment_id: { type: Number, required: true, unique: true },
-    project_id: { type: Number, required: true },
-    user_id: { type: Number, required: true },
+  //  comment_id: { type: Number, required: false, unique: true },
+    project_id: String,
+    email: String,
     content: { type: String, required: true },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
@@ -60,18 +124,21 @@ const userCommunitySchema = new mongoose.Schema({
     create_at: { type: Date, default: Date.now },
 });
 
-const likesSchema = new mongoose.Schema({
-    like_id: { type: Number, required: true, unique: true },
-    post_id: { type: Number, required: true },
-    user_id: { type: Number, required: true },
+const likeSchema = new mongoose.Schema({
+    // deleted the like_id
+    project_id: String,  // Changed from post_id to project_id
+    email: String,  // changed from user_id to email
     created_at: { type: Date, default: Date.now }
 });
 
 const EduUser = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
+const StartUp = mongoose.model('StartUp', startUpSchema);
+const ShortResearch = mongoose.model('ShortResearch', shortResearchSchema);
+const LongResearch = mongoose.model('LongResearch', longResearchSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
-const Likes = mongoose.model('Likes', likesSchema);
+const Like = mongoose.model('Like', likeSchema);
 
-module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Likes};
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch };

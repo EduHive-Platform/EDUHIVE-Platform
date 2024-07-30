@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const FuncMain = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
-    navigate('/loginWithEmail');
+    navigate('/login');
   };
   const handleSignUp = () => {
     navigate('/signup');

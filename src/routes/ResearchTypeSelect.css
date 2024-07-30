@@ -1,0 +1,49 @@
+/* PostTypeSelect.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: large;
+}
+
+.research-type-select {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.research-type-select h1 {
+  font-size: 2em;
+  color: #07386c;
+  margin-bottom: 70px;
+}
+
+.card2-container {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+}
+
+.card2 {
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card2 img {
+  width: 100%;
+  height: auto;
+}
+
+.card2 h2 {
+  margin: 15px 0;
+  font-size: 1.7em;
+}
