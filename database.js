@@ -141,4 +141,4 @@ const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
 const Like = mongoose.model('Like', likeSchema);
 
-module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp };
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch };

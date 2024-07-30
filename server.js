@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp } = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch } = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
@@ -395,6 +395,53 @@ app.post('/save-startup', async (req, res) => {
         })
         const savedProject = await newProject.save();
         res.status(201).json(savedStartUp);
+    } catch (error) {
+        console.error('Failed to save startup:', error);
+        res.status(500).json({ message: 'Failed to save startup' });
+    }
+});
+
+app.post('/save-short-research', async (req, res) => {
+    const { email, project } = req.body;
+    if (!email || !project) {
+        return res.status(400).json({ message: "Invalid email or project" });
+    }
+    // 加上password验证
+    const user = await EduUser.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ message: "No user with that email" });
+    }
+
+    const newShortResearch = new ShortResearch({
+        email: user.email, // Assuming user_id should be the MongoDB ObjectId
+        community_id: project.community_id,
+        status: project.status,
+        create_at: new Date(),
+        updated_at: new Date(),
+        title: project.title,
+        description: project.description,
+        area: project.area,
+        credit: project.credit,
+        job_type: project.job_type,
+        num_employees: project.num_employees,
+        job_descriptions: project.job_descriptions,
+        skills_or_requirements: project.skills_or_requirements,
+        institution: project.institution,
+        duration: project.duration,
+        other_info: project.other_info,
+        signature: project.signature
+    });
+
+    try {
+        const savedShortResearch = await newShortResearch.save();
+        const newProject = new Project({
+            project_id: savedShortResearch._id.toString(),
+            project_type: "ShortResearch",
+            community_id: savedShortResearch.community_id,
+            email: savedShortResearch.email
+        })
+        const savedProject = await newProject.save();
+        res.status(201).json(savedShortResearch);
     } catch (error) {
         console.error('Failed to save startup:', error);
         res.status(500).json({ message: 'Failed to save startup' });
