@@ -1,12 +1,17 @@
-// Sidebar.jsx
 import React, { useState } from 'react';
 import './Sidebar.css';
 
 const Sidebar = ({ items }) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const toggleSubLinks = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
+  const handleLinkClick = (index, href) => {
+    if (items[index].subLinks) {
+      // 如果有子链接，则阻止默认跳转行为，仅切换展开状态
+      setActiveIndex(activeIndex === index ? null : index);
+    } else {
+      // 如果没有子链接，则直接跳转
+      window.location.href = href;
+    }
   };
 
   return (
@@ -14,7 +19,14 @@ const Sidebar = ({ items }) => {
       <ul>
         {items.map((item, index) => (
           <li key={index}>
-            <a onClick={() => toggleSubLinks(index)} className="nav-link">
+            <a
+              href={item.href || '#'}  // 如果有指定href，则使用，否则使用'#'作为占位符
+              onClick={(e) => {
+                e.preventDefault(); // 阻止链接默认跳转行为
+                handleLinkClick(index, item.href);
+              }}
+              className="nav-link"
+            >
               {item.label}
             </a>
             {item.subLinks && activeIndex === index && (

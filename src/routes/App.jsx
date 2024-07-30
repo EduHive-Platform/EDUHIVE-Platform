@@ -34,11 +34,13 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/email-verification" element={<EmailVerification />} />
+        
         <Route path="/studentPost" element={<StudentPost />} />
         <Route path="/professorPost" element={<ProfessorPost />}/>
         <Route path="/ComponentTest" element={<ComponentTest />}/>
         <Route path="/Profile" element={<Profile />}/>
         <Route path="/PersonalProject" element={<PersonalProject />}/>
+
         <Route path="/postTypeSelect" element={<PostTypeSelect />} />
         <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
         <Route path="/postStartup" element={<PostStartup/>} />

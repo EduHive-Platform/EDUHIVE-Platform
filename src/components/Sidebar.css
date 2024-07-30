@@ -20,6 +20,11 @@
     margin: 35px 0;
     border-bottom: 1px solid #ddd; /* Thin line between each link */
   }
+
+/* 为第一个列表项增加额外的上边距 */
+.sidebar li:first-child {
+    margin-top: 60px; /* 增加上边距，数值可以根据需要调整 */
+}
   
   .sidebar a.nav-link {
     text-decoration: none;

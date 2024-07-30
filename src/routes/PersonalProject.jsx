@@ -26,10 +26,12 @@ const Container = styled.div`
 `;
 
 const sidebarItems = [
-
-    { label: 'Build a New Project' },
+    { label: 'Build a New Project', href: '/postTypeSelect' },
     { label: 'Archieved Projects' },
     { label: 'Joined Projects' },
+    { label: 'Pending Projects' },
+    { label: 'Saved Projects' },
+    { label: 'Posted Projects' },
   ];
 
 const leftLinks = [
