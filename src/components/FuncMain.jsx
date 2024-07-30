@@ -33,6 +33,9 @@ const FuncMain = () => {
         <div className="func-buttons">
           <Button onClick={handleLogin}>Login the EduHive</Button>
           <Button onClick={handleSignUp}>Signup the EduHive</Button>
+          <Button onClick={() => {navigate('./studentPost')}}>Student post Test</Button>
+          <Button onClick={() => {navigate('./ProfessorPost')}}>Professor post Test</Button>
+
         </div>
       </div>
       <div className="func-image">
