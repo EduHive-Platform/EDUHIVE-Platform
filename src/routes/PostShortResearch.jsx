@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './PostShortResearch.css';
 import HeaderMain from '../components/HeaderMain';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function PostShortResearch() {
+  const navigate = useNavigate();
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
     { label: 'Post', href: '/postTypeSelect' },
@@ -46,7 +48,7 @@ function PostShortResearch() {
         project: formData
       });
       console.log('Research opportunity posted successfully:', response.data);
-      alert('Research opportunity posted successfully!');
+      navigate('/success')
     } catch (error) {
       console.error('Failed to post research opportunity:', error);
       alert('Failed to post research opportunity. Please try again!');

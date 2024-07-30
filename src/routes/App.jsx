@@ -18,6 +18,8 @@ import PostTypeSelect from './PostTypeSelect'; // Import the new component
 import ResearchTypeSelect from './ResearchTypeSelect';
 import PostStartup from './PostStartup';
 import PostShortResearch from "./PostShortResearch"
+import SuccessScreen from './SuccessScreen';
+
 function App() {
   return (
     <div className="App">
@@ -41,6 +43,7 @@ function App() {
         <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
         <Route path="/postStartup" element={<PostStartup/>} />
         <Route path="/postShortResearch" element={<PostShortResearch/>} />
+        <Route path="/success" element={<SuccessScreen/>} />
           
         <Route path="*" element={<NotFound />} />
       </Routes>
