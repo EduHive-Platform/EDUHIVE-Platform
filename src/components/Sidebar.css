@@ -28,7 +28,7 @@
   
   .sidebar a.nav-link {
     text-decoration: none;
-    color: #05628e;
+    color: rgb(38, 37, 37);
     font-size: 18px;
     padding-left: 10px; /* Space to the left of each link */
     display: block;

@@ -10,7 +10,7 @@ function PostTypeSelect() {
     if (type === "startup") {
       navigate('/postStartup')
     } else {
-      navigate('/postShortResearch')
+      navigate('/researchTypeSelect')
     }
   };
 

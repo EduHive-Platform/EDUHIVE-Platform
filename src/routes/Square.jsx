@@ -32,7 +32,7 @@ const Square = () => {
 
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
-    { label: 'Post', href: '/postTypeSelect' },
+    { label: 'Post', href: '/PersonalProject' },
     { label: 'Plaza', href: '/square' },
     { label: 'Dashboard', href: '/contact' },
   ];
