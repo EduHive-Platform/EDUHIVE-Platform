@@ -18,6 +18,7 @@ import PostTypeSelect from './PostTypeSelect'; // Import the new component
 import ResearchTypeSelect from './ResearchTypeSelect';
 import PostStartup from './PostStartup';
 import PostShortResearch from "./PostShortResearch"
+import PostLongResearch from './PostLongResearch';  
 import SuccessScreen from './SuccessScreen';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
         <Route path="/postStartup" element={<PostStartup/>} />
         <Route path="/postShortResearch" element={<PostShortResearch/>} />
+        <Route path="/postLongResearch" element={<PostLongResearch/>} />
         <Route path="/success" element={<SuccessScreen/>} />
           
         <Route path="*" element={<NotFound />} />
