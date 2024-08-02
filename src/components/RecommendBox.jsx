@@ -7,8 +7,7 @@ const CardContainer = styled.div`
   border-radius: 8px;
   padding: 20px;
   background-color: white;
- 
-  box-sizing: border-box; // 确保padding和border不会增加额外宽度
+  box-sizing: border-box; // Include padding and border in the element's width and height
 `;
 
 const Title = styled.h1`

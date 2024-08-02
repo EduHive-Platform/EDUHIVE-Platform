@@ -25,35 +25,6 @@ const rightLinks = [
   { label: 'Instagram', href: 'https://www.instagram.com' },
 ];
 
-const ContainerP = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: flex-start; // Align items at the top
-`;
-
-const Form = styled.div` // Use a <div> for layout control
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; // Space between items
-  padding: 20px;
-  flex: 1; // Allow Form to take available space
-  margin-left: 20%; // Leave space for the sidebar
-`;
-
-const RecommendBoxStyled = styled(RecommendBox)`
-  flex: 0 1 calc(33.3% - 20px); // Ensure three cards per row
-  margin: 10px;
-  max-width: calc(33.3% - 20px); // Set max width to control layout
-  box-sizing: border-box; // Include padding and border in the element's width and height
-`;
-
-const SidebarStyled = styled(Sidebar)`
-  width: 20%;
-  min-width: 200px;
-  position: fixed; // Make it fixed so it doesn't affect layout
-  height: 100%; // Take full height
-`;
-
 const OuterContainer = styled.div`
   position: relative;
   padding: 20px;
@@ -63,6 +34,38 @@ const OuterContainer = styled.div`
   flex-direction: column;
 `;
 
+const ContainerP = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+`;
+
+const SidebarStyled = styled(Sidebar)`
+  width: 20%;
+  min-width: 200px;
+  position: fixed;
+  height: 100%;
+  background-color: #f5f5f5;
+`;
+
+const Form = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  flex: 1;
+  margin-left: 20%;
+  box-sizing: border-box;
+`;
+
+const RecommendBoxStyled = styled(RecommendBox)`
+  flex: 0 1 calc(33.3% - 20px);
+  margin: 10px; // Top and Bottom margins are set to 10px
+  margin-bottom: 30px; // Add extra bottom margin for more spacing between rows
+  max-width: calc(33.3% - 20px);
+  box-sizing: border-box;
+`;
+
 const PersonalProject = () => {
   return (
     <OuterContainer>
@@ -70,12 +73,42 @@ const PersonalProject = () => {
       <ContainerP>
         <SidebarStyled items={sidebarItems} />
         <Form>
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
-          <RecommendBoxStyled title={"FICA"} content={"Join us!"} image={"/assets/PictureMain.png"} preferences={["software", "apple", "cola"]} />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
+          <RecommendBoxStyled
+            title="FICA"
+            content="Join us!"
+            image="/assets/PictureMain.png"
+            preferences={["software", "apple", "cola"]}
+          />
         </Form>
       </ContainerP>
     </OuterContainer>

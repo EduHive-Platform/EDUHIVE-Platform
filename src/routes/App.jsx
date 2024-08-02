@@ -40,7 +40,7 @@ function App() {
         <Route path="/professorPost" element={<ProfessorPost />}/>
         <Route path="/ComponentTest" element={<ComponentTest />}/>
         <Route path="/Profile" element={<Profile />}/>
-        <Route path="/PersonalProject" element={<PersonalProject />}/>
+        <Route path="/dashboard" element={<PersonalProject />}/>
 
         <Route path="/postTypeSelect" element={<PostTypeSelect />} />
         <Route path="/researchTypeSelect" element={<ResearchTypeSelect />} />
