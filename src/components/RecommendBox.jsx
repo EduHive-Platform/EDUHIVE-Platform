@@ -6,9 +6,9 @@ const CardContainer = styled.div`
   border: 1px solid #b0bec5;
   border-radius: 8px;
   padding: 20px;
-  max-width: 600px;
-  margin: auto;
   background-color: white;
+ 
+  box-sizing: border-box; // 确保padding和border不会增加额外宽度
 `;
 
 const Title = styled.h1`
