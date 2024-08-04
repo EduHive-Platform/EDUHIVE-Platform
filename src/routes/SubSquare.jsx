@@ -11,23 +11,23 @@ import axios from 'axios';
 
 const SubSquare = () => {
   const location = useLocation();
+  const defaultCommunity = 'Default Community';
   const [searchText, setSearchText] = useState('');
-  const [finalCommunityName, setFinalCommunityName] = useState('')
-  //const [communityName, setCommunityName] = useState('');
-  const communityName = location.state ? location.state.communityName : 'Default Community';
-  //setFinalCommunityName(communityName)
-  console.log(communityName)
-
+  const [finalCommunityName, setFinalCommunityName] = useState(defaultCommunity);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  const communityName = location.state ? location.state.communityName : defaultCommunity;
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
+        const response = await axios.get(`http://localhost:3000/subSquare?community=${communityName}`);
         setProjects(response.data);
-        setFinalCommunityName(communityName)
+        setFinalCommunityName(communityName);
       } catch (error) {
+        setError('Failed to load projects');
         console.error('Error fetching projects:', error);
       } finally {
         setLoading(false);
@@ -36,6 +36,28 @@ const SubSquare = () => {
 
     fetchProjects();
   }, [communityName]);
+
+  const handleSearch = async (query) => {
+    setSearchText(query);
+    setLoading(true);
+    setFinalCommunityName(query);
+
+    try {
+      const response = await axios.get(`http://localhost:3000/subSquare?community=${query}`);
+      setProjects(response.data);
+      setError(null);
+    } catch (error) {
+      setError('Failed to load projects');
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFilter = () => {
+    console.log('Filter button clicked');
+    // Add your filter logic here
+  };
 
   const sidebarItems = [
     { label: 'Community', subLinks: [{ label: 'Computer Science', href: '/ComputerScience' }, { label: 'Electrical Engineering', href: '/subhome2' },
@@ -72,66 +94,49 @@ const SubSquare = () => {
     { label: 'Instagram', href: 'https://www.instagram.com' },
   ];
 
-  const handleSearch = async (query) => {
-    setSearchText(query);  // Update searchText with the query
-    setLoading(true);
-    setFinalCommunityName(query)
-    try {
-      const response = await axios.get(`http://localhost:3000/projects/community/${query}`);
-      setProjects(response.data);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleFilter = () => {
-    console.log('Filter button clicked');
-    // Add your filter logic here
-  };
-
   return (
     <div className="square-page">
-        <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
-        <div className="square-container">
-          <Sidebar items={sidebarItems} />
-          <div className="main-content2">
-            <div className='search-box'>
+      <HeaderMain leftLinks={leftLinks} rightLinks={rightLinks} />
+      <div className="square-container">
+        <Sidebar items={sidebarItems} />
+        <div className="main-content2">
+          <div className='search-box'>
             <SearchBox onSearch={handleSearch} onFilter={handleFilter} />
-            </div>
-            <div className='posts'>
-              {loading ? (
-                <div className="loading-container">
-                  <Oval
-                    height={80}
-                    width={80}
-                    color="#0056b3"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                    ariaLabel='oval-loading'
-                    secondaryColor="#0056b3"
-                    strokeWidth={2}
-                    strokeWidthSecondary={2}
-                  />
-                  <p>Loading projects...</p>
-                </div>
-              ) : (
-                projects.map((project, index) => (
-                  <ProjectPost
-                    key={index}
-                    communityName={finalCommunityName}
-                    title={project.title}
-                    content={project.description}
-                    likes={project.num_likes}
-                    comments={project.comments.map(comment => comment.content)}
-                  />
-                ))
-              )}
-            </div>
+          </div>
+          <div className='posts'>
+            {loading ? (
+              <div className="loading-container">
+                <Oval
+                  height={80}
+                  width={80}
+                  color="#0056b3"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel='oval-loading'
+                  secondaryColor="#0056b3"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+                <p>Loading projects...</p>
+              </div>
+            ) : error ? (
+              <p className="error-message">{error}</p>
+            ) : (
+              projects.map((project, index) => (
+                <ProjectPost
+                  key={index}
+                  communityName={finalCommunityName}
+                  title={project.title}
+                  content={project.description}
+                  likes={project.num_likes}
+                  comments={project.comments.map(comment => comment.content)}
+                />
+              ))
+            )}
           </div>
         </div>
+      </div>
     </div>
   );
 };
