@@ -20,6 +20,47 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"));
 
+app.get('/subSquare', asyncHandler(async (req, res) => {
+    try {
+      // Extract prioritization and filter parameters
+      const { prioritization, filters } = req.query;
+  
+      // Default prioritization if none provided
+      const defaultPrioritization = ['status', 'title', 'area', 'credit', 'job_type', 'job_descriptions', 'skills_or_requirements', 'institution', 'duration', 'signature'];
+      const prioritizationOrder = prioritization ? prioritization.split(',') : defaultPrioritization;
+  
+      let filterParams = {};
+      try {
+        filterParams = JSON.parse(filters);
+      } catch (err) {
+        return res.status(400).json({ message: "Invalid filters format. Expected JSON object." });
+      }
+  
+      let query = {};
+      for (const key of prioritizationOrder) {
+        if (filterParams[key]) {
+          const { value, type } = filterParams[key];
+          if (type === 'exact') {
+            query[key] = new RegExp(`^${value}$`, 'i'); // Exact match
+          } else if (type === 'fuzzy') {
+            query[key] = new RegExp(value, 'i'); // Partial match
+          }
+        }
+      }
+  
+      // Log the constructed query object
+      console.log("Constructed query:", query);
+  
+      const startups = await StartUp.find(query).sort({ create_at: -1 });
+      res.status(200).json(startups);
+    } catch (error) {
+      console.error('Error fetching startups:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }));
+  
+  
+
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user", asyncHandler(async (req, res) => {
     try {
