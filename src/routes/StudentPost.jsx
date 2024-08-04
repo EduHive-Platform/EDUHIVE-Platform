@@ -113,10 +113,10 @@ const sidebarItems = [
 ];
 
 const leftLinks = [
-  { label: 'Solutions', href: '/solutions' },
-  { label: 'About', href: '/about' },
-  { label: 'Insights', href: '/insights' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Profile', href: '/solutions' },
+  { label: 'Post', href: '/postTypeSelect' },
+  { label: 'Plaza', href: '/square' },
+  { label: 'Dashboard', href: '/dashboard' },
 ];
 
 const rightLinks = [

@@ -83,12 +83,12 @@ const LogoImage = styled.img`
 `;
 
 const leftLinks = [
-    { label: 'Profile', href: '/profile' },
-    { label: 'Post', href: '/post' },
-    { label: 'Mailbox', href: '/mailbox' },
-    { label: 'Plaza', href: '/plaza' },
-    ];
-    
+  { label: 'Profile', href: '/solutions' },
+  { label: 'Post', href: '/postTypeSelect' },
+  { label: 'Plaza', href: '/square' },
+  { label: 'Dashboard', href: '/dashboard' },
+];
+
 const rightLinks = [
 { label: 'LinkedIn', href: 'https://www.linkedin.com' },
 { label: 'Instagram', href: 'https://www.instagram.com' },
