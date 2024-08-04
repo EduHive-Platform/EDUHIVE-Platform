@@ -23,7 +23,7 @@ const SubSquare = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/subSquare?community=${communityName}`);
+        const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
         setProjects(response.data);
         setFinalCommunityName(communityName);
       } catch (error) {
