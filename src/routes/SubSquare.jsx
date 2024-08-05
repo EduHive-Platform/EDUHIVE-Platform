@@ -43,7 +43,7 @@ const SubSquare = () => {
     setFinalCommunityName(query);
 
     try {
-      const response = await axios.get(`http://localhost:3000/subSquare?community=${query}`);
+      const response = await axios.get(`http://localhost:3000/projects/community/${communityName}`);
       setProjects(response.data);
       setError(null);
     } catch (error) {

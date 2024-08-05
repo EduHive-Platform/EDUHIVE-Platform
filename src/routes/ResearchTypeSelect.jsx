@@ -10,7 +10,7 @@ function ResearchTypeSelect() {
     if (type === "short") {
       navigate('/postShortResearch')
     } else {
-      navigate('/postShortResearch')
+      navigate('/postLongResearch')
     }
   };
 

@@ -40,7 +40,6 @@ const projectSchema = new mongoose.Schema({
 });
 
 const startUpSchema = new mongoose.Schema({
-    project_id: String,
     email: String,
     community_id: Number,
     status: String,
@@ -61,7 +60,6 @@ const startUpSchema = new mongoose.Schema({
 })
 
 const shortResearchSchema = new mongoose.Schema({
-    project_id: String,
     email: String,
     community_id: Number,
     status: String,
@@ -82,7 +80,6 @@ const shortResearchSchema = new mongoose.Schema({
 })
 
 const longResearchSchema = new mongoose.Schema({
-    project_id: String,
     email: String,
     community_id: Number,
     status: String,
