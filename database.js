@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now },
     dateOfBirth: Date,
     institution: String,
-    project: String 
+    project: String,
 });
 
 const projectSchema = new mongoose.Schema({
@@ -131,6 +131,18 @@ const likeSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 
+const verifySchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    code: {type: String, required: true},
+    created_at: { type: Date, expires: '120s', default: Date.now }
+})
+
+const accessScheme = new mongoose.Schema({
+    email: { type: String, required: true},
+    token: {type: String, required: true},
+    created_at: { type: Date, expires: '1h', default: Date.now }
+})
+
 const EduUser = mongoose.model('User', userSchema);
 const Project = mongoose.model('Project', projectSchema);
 const StartUp = mongoose.model('StartUp', startUpSchema);
@@ -140,5 +152,7 @@ const Comment = mongoose.model('Comment', commentSchema);
 const Community = mongoose.model('Community', communitySchema);
 const UserCommunity = mongoose.model('UserCommunity', userCommunitySchema);
 const Like = mongoose.model('Like', likeSchema);
+const Verification = mongoose.model('Verification', verifySchema);
+const Access = mongoose.model('Access', accessScheme);
 
-module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch };
+module.exports = { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch, Verification, Access};

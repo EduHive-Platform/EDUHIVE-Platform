@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {useCookies} from 'react-cookie';
 
 const Logo = styled.img`
   height: 60px;
@@ -24,6 +25,7 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 35px;
   color: #333;
+  margin-bottom: 20px;
 `;
 
 const OuterContainer = styled.div`
@@ -55,8 +57,8 @@ const Button = styled.button`
   cursor: pointer;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #fff;
-  color: #333;
+  background-color: #116E6A;
+  color: white;
 `;
 
 const SmallButton = styled(Button)`
@@ -73,6 +75,7 @@ const Row = styled.div`
 `;
 
 const Input = styled.input`
+  margin-top: 10px;
   width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 50px;
@@ -92,19 +95,22 @@ const LoginEmail = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [cookies, setCookie] = useCookies(['email','access_token'])
     const handleLogin = async (e) => {
         e.preventDefault(); // Prevents the default form submission behavior
         const userData = {
           email,
           password
         };
-    
         try {
           const response = await axios.post('http://localhost:3000/login', userData);
           console.log("the reponse is" + response.data);
           /* Redirect or update UI based on the response 
              TODO
           */
+          const token = response.token;
+          setCookie("email", email, {maxAge: 3600})
+          setCookie('access_token', token, {maxAge: 3600})
           navigate('/square');
         } catch (error) {
           console.error('There was an error Login!', error);

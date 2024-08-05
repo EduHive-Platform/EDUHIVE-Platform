@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -98,15 +98,14 @@ const EmailVerification = () => {
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [password, setPassword] = useState('');
-    const [generatedCode, setGeneratedCode] = useState('');
     const [error, setError] = useState('');
+    const [confirm_password, setConfirm] = useState('')
+    const [userData, setUserData] = useState({})
 
     const handleSendCode = async () => {
         setError(''); // Reset error message
-        const code = Math.floor(1000 + Math.random() * 9000).toString();
-        setGeneratedCode(code);
         try {
-            const response = await axios.post('http://localhost:3000/send-verification-email', { email, code });
+            const response = await axios.post('http://localhost:3000/send-verification-email', { email });
             console.log(response.data);
             alert("Verification email sent successfully!");
         } catch (error) {
@@ -118,22 +117,32 @@ const EmailVerification = () => {
     const handleConfirm = async (e) => {
         e.preventDefault();
         setError(''); // Reset error message
-        if (verificationCode !== generatedCode) {
-            setError("Invalid verification code.");
-            return;
+        const password1 = password
+        const confirm_password1 = confirm_password
+        if (password1 != confirm_password1) {
+          setError('Password is not the same as confirmed password.')
+          return
+        }
+        const code = verificationCode
+        if (!code) {
+          setError('Remember to fill verification code');
+          return
         }
         const userData = {
-            name,
-            dateOfBirth,
-            institution,
-            email,
-            created_at: new Date(),
-            password
-        };
+          name,
+          dateOfBirth,
+          institution,
+          email,
+          created_at: new Date(),
+          password,
+          code
+        }
+
         try {
-            const response = await axios.post('http://localhost:3000/save-user', userData);
-            console.log(response.data);
-            alert("User saved successfully!");
+          const response = await axios.post('http://localhost:3000/save-user-verification', userData);
+          console.log(response.data);
+          alert("User saved successfully!");
+          navigate('/loginWithEmail')
         } catch (error) {
             console.error('There was an error saving the user!', error);
             if (error.response && error.response.data && error.response.data.error) {
@@ -142,6 +151,8 @@ const EmailVerification = () => {
                 setError("There was an error saving the user.");
             }
         }
+        // save email and access point as cookie
+        
     };
 
     const handleBack = () => {
@@ -157,6 +168,9 @@ const EmailVerification = () => {
                     {error && <ErrorMessage>{error}</ErrorMessage>}
                     <Row>
                         <Input type="password" placeholder='New Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </Row>
+                    <Row>
+                        <Input type="password" placeholder='Confirm Password' value={confirm_password} onChange={(e) => setConfirm(e.target.value)} />
                     </Row>
                     <Row>
                         <Input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />

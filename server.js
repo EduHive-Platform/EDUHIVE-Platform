@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const asyncHandler = require("express-async-handler");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch } = require("./database");
+const { connectToDB, EduUser, Project, Comment, Community, UserCommunity, Like, StartUp, ShortResearch, LongResearch, Verification, Access} = require("./database");
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const crypto = require('crypto')
 const { ObjectId } = require('mongodb')
 
 dotenv.config();
@@ -19,6 +20,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"));
+
+
 
 app.get('/subSquare', asyncHandler(async (req, res) => {
     try {
@@ -62,11 +65,14 @@ app.get('/subSquare', asyncHandler(async (req, res) => {
   
 
 // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
-app.post("/save-user", asyncHandler(async (req, res) => {
+app.post("/save-user-verification", asyncHandler(async (req, res) => {
     try {
-        const { name, dateOfBirth, institution, email, created_at, password } = req.body;
+        const { name, dateOfBirth, institution, email, created_at, password, code } = req.body;
+        const findUser = await EduUser.findOne({email: email})
+        if (findUser){
+            return res.status(400).json({error: "User already exists"});
+        }
         const password_hash = await bcrypt.hash(password, 10);
-
         const newUser = new EduUser({
             username: name,
             password_hash,
@@ -75,7 +81,12 @@ app.post("/save-user", asyncHandler(async (req, res) => {
             institution,
             created_at,
         });
-
+        const verification_code = (await Verification.findOne({email: email})).code;
+        if (!verification_code || verification_code != code) {
+            return res.status(400).json({error: 'Verification code is expired, or is wrong.'});
+        } else {
+            await Verification.findOneAndDelete({email: email});
+        }
         await newUser.save();
         res.status(200).json({ message: "User saved successfully", data: newUser });
     } catch (error) {
@@ -132,13 +143,31 @@ app.post("/login", asyncHandler(async (req, res) => {
     if (!isMatch) {
         return res.status(400).json({ message: "Invalid email or password" });
     }
+    //Generate random access token
+    const generateAccessToken = (length) => {
+        // Generate secure random bytes
+        return crypto.randomBytes(length)
+               .toString('base64')  // Encode in base64
+               .replace(/\+/g, '-') // Replace + with - (URL safe)
+               .replace(/\//g, '_') // Replace / with _ (URL safe)
+               .replace(/=+$/, ''); // Remove trailing =
+    }
+    
+    // Generate a 128-bytes long access token
+    const token = generateAccessToken(128);
+    const accessToken = new Access({email: email, token: token})
+    await accessToken.save()
 
-    res.status(200).json({ message: "Login successfully", data: user });
+    res.status(200).json({ message: "Login successfully", data: user, token: token});
 }));
 
 app.post("/send-verification-email", asyncHandler(async (req, res) => {
-    const { email, code } = req.body;
-
+    const { email } = req.body;
+    const verification_code_exists = await Verification.findOne({email: email})
+    if (verification_code_exists){
+        return res.status(400).json({ message: "Verification code is already sent!" });
+    }
+    const code = Math.floor(1000 + Math.random() * 9000).toString();
     const email_sender = process.env.EMAIL_SENDER;
     const email_password = process.env.EMAIL_PASSWORD;
 
@@ -168,6 +197,13 @@ app.post("/send-verification-email", asyncHandler(async (req, res) => {
             console.log(error);
             return res.status(500).json({ message: "Error sending verification email", success: false });
         }
+        
+        const verification = new Verification({
+            email: email,
+            code: code
+        });
+        verification.save();
+
         res.status(200).json({ message: "Successfully sent verification email", success: true });
     });
 }));
