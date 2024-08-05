@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactSelect from "react-select";
 import HeaderMain from '../components/HeaderMain';
@@ -48,7 +47,7 @@ const Textarea = styled.textarea`
   font-size: 16px;
   resize: none;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: calc(100%);
   height: 200px;
   border: 1px solid #ccc;
@@ -113,10 +112,10 @@ const sidebarItems = [
 ];
 
 const leftLinks = [
-  { label: 'Profile', href: '/solutions' },
-  { label: 'Post', href: '/postTypeSelect' },
-  { label: 'Plaza', href: '/square' },
-  { label: 'Dashboard', href: '/dashboard' },
+  { label: 'Solutions', href: '/solutions' },
+  { label: 'About', href: '/about' },
+  { label: 'Insights', href: '/insights' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const rightLinks = [
@@ -124,23 +123,18 @@ const rightLinks = [
   { label: 'Instagram', href: 'https://www.instagram.com' },
 ];
 
-const StudentPost = () => {
+const ProfessorPost = () => {
     const navigate = useNavigate()
-    const location = useLocation()
-
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [Communities, setCommunities] = useState('')
     const handlePost = () => {
         // To Do: need to connect backend interface for receiving student post
         alert('Receive your post sucessfully');
-        navigate('/Square', location)
+        navigate('/Square')
     }
 
     const handleSave = () => {
         // To Do: need to connect backend interface for saving student post
         alert('Save your post sucessfully');
-        navigate('/Square', location)
+        navigate('/Square')
     }
     const options = [
       {value:0, label:"Humanity" },
@@ -162,15 +156,13 @@ const StudentPost = () => {
             <Container>
             <Sidebar items={sidebarItems} />
                 <FormContainer>
-                <Title>Create your own project</Title>
-                <SubTitle>Project Title</SubTitle>
+                <Title>Create your research requirement</Title>
+                <SubTitle>Research Topic</SubTitle>
                 <Input type='text' placeholder="Title"></Input>
                 <SubTitle>Community</SubTitle>
                 <MultiSelect isMulti options={options}></MultiSelect>
-                <SubTitle>Project Description</SubTitle>
+                <SubTitle>Research Requirement</SubTitle>
                 <Textarea type='text' placeholder='description'></Textarea>
-                <SubTitle>Requirements</SubTitle>
-                <Textarea type='text' placeholder='requirements for the participants'></Textarea>
                 <Button onClick={handlePost}>Post</Button>
                 <SaveButton onClick={handleSave}>Save draft</SaveButton>
                 </FormContainer>
@@ -180,4 +172,4 @@ const StudentPost = () => {
     )
 }
 
-export default StudentPost
+export default ProfessorPost

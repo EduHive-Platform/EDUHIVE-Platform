@@ -16,7 +16,7 @@ const Main = () => {
     { label: 'Profile', href: '/solutions' },
     { label: 'Post', href: '/postTypeSelect' },
     { label: 'Plaza', href: '/square' },
-    { label: 'Dashboard', href: '/contact' },
+    { label: 'Dashboard', href: '/dashboard' },
   ];
 
   const rightLinks = [

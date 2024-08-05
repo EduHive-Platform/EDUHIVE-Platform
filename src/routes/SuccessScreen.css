@@ -1,0 +1,57 @@
+.success-container {
+    position: relative; /* For positioning the links */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+.rotate-logo {
+    position: center;
+    animation: rotate 1s ease-in-out;
+    display: inline-block;
+    transform-origin: center; /* 设置动画旋转中心为图标中心 */
+  }
+  
+  .logo img {
+    width: 350px; /* 根据需要调整尺寸 */
+    height: auto; /* 保持图像的纵横比 */
+  }
+
+  .top-right-buttons {
+    margin-top: 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    flex-direction: column;
+  }
+  
+  .top-right-buttons button {
+    margin-top: 30px;
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #116E6A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .top-right-buttons button:hover {
+    background-color: grey;
+  }
+  
+  .text-success {
+    margin-top: 30px;
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

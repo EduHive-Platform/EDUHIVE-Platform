@@ -1,0 +1,14 @@
+社区类，数字对应community_id, text对应社区名：
+301: Law
+302: Humanity
+303: Engineering
+    30301: Computer Science
+        3030101: AI
+        3030102: OS
+        3030103: Computer Architecture 
+    30302: Electrical Engineering
+        3030201: Integrated Circuits 
+        3030202: Signals and Systems
+305: Business
+306: SocialScience
+...

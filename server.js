@@ -21,33 +21,50 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + "/public"));
 
-// // Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
-// app.post("/save-user", asyncHandler(async (req, res) => {
-//     try {
-//         const { name, dateOfBirth, institution, email, created_at, password } = req.body;
-//         const password_hash = await bcrypt.hash(password, 10);
 
-//         const newUser = new EduUser({
-//             username: name,
-//             password_hash,
-//             email,
-//             dateOfBirth,
-//             institution,
-//             created_at,
-//         });
 
-//         await newUser.save();
-//         res.status(200).json({ message: "User saved successfully", data: newUser });
-//     } catch (error) {
-//         console.error('Error saving user:', error);
-//         if (error.code === 11000) { // MongoDB duplicate key error code
-//             const duplicateField = Object.keys(error.keyValue)[0];
-//             res.status(400).json({ error: `Duplicate key error: ${duplicateField} already exists.` });
-//         } else {
-//             res.status(500).json({ error: error.message });
-//         }
-//     }
-// }));
+app.get('/subSquare', asyncHandler(async (req, res) => {
+    try {
+      // Extract prioritization and filter parameters
+      const { prioritization, filters } = req.query;
+  
+      // Default prioritization if none provided
+      const defaultPrioritization = ['status', 'title', 'area', 'credit', 'job_type', 'job_descriptions', 'skills_or_requirements', 'institution', 'duration', 'signature'];
+      const prioritizationOrder = prioritization ? prioritization.split(',') : defaultPrioritization;
+  
+      let filterParams = {};
+      try {
+        filterParams = JSON.parse(filters);
+      } catch (err) {
+        return res.status(400).json({ message: "Invalid filters format. Expected JSON object." });
+      }
+  
+      let query = {};
+      for (const key of prioritizationOrder) {
+        if (filterParams[key]) {
+          const { value, type } = filterParams[key];
+          if (type === 'exact') {
+            query[key] = new RegExp(`^${value}$`, 'i'); // Exact match
+          } else if (type === 'fuzzy') {
+            query[key] = new RegExp(value, 'i'); // Partial match
+          }
+        }
+      }
+  
+      // Log the constructed query object
+      console.log("Constructed query:", query);
+  
+      const startups = await StartUp.find(query).sort({ create_at: -1 });
+      res.status(200).json(startups);
+    } catch (error) {
+      console.error('Error fetching startups:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }));
+  
+  
+
+// Endpoint to handle user data saving, used in EmailVerification.jsx func handleConfirm
 app.post("/save-user-verification", asyncHandler(async (req, res) => {
     try {
         const { name, dateOfBirth, institution, email, created_at, password, code } = req.body;

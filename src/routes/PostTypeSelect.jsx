@@ -10,15 +10,15 @@ function PostTypeSelect() {
     if (type === "startup") {
       navigate('/postStartup')
     } else {
-      navigate('/postShortResearch')
+      navigate('/researchTypeSelect')
     }
   };
 
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
-    { label: 'Post', href: '/about' },
-    { label: 'Plaza', href: '/insights' },
-    { label: 'Dashboard', href: '/contact' },
+    { label: 'Post', href: '/postTypeSelect' },
+    { label: 'Plaza', href: '/square' },
+    { label: 'Dashboard', href: '/dashboard' },
   ];
 
   const rightLinks = [

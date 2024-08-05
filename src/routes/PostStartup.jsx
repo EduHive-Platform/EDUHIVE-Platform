@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import './PostStartup.css';
 import HeaderMain from '../components/HeaderMain';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function PostStartup() {
-
+  const navigate = useNavigate();
   const leftLinks = [
     { label: 'Profile', href: '/solutions' },
     { label: 'Post', href: '/postTypeSelect' },
     { label: 'Plaza', href: '/square' },
-    { label: 'Dashboard', href: '/contact' },
+    { label: 'Dashboard', href: '/dashboard' },
   ];
-
   const rightLinks = [
     { label: 'LinkedIn', href: 'https://www.linkedin.com' },
     { label: 'Instagram', href: 'https://www.instagram.com' },
@@ -48,7 +48,7 @@ function PostStartup() {
         project: formData
       });
       console.log('Project saved:', response.data);
-      
+      navigate('/success')
     } catch (error) {
       console.error('Failed to post startup:', error);
     }
