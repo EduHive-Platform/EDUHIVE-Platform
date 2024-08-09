@@ -126,6 +126,7 @@ const SubSquare = () => {
               projects.map((project, index) => (
                 <ProjectPost
                   key={index}
+                  project_id={project._id}
                   communityName={finalCommunityName}
                   title={project.title}
                   content={project.description}

@@ -216,7 +216,7 @@ app.get("/projects", asyncHandler(async (req, res) => {
     res.status(200).json(projects);
 }));
 
-// Get project by ID
+// Get project by ID (used, do not delete)
 app.get("/projects/:id", asyncHandler(async (req, res) => {
     const project = await Project.findById(req.params.id);
     if (!project) {
